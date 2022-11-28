@@ -7,3 +7,6 @@ projects_page_bp = Blueprint(name='projects_page_bp',
                     template_folder='templates/projects_page',
                     url_prefix="/projects");
 
+@projects_page_bp.route('/')
+def projects():
+    return render_template('projects.html');

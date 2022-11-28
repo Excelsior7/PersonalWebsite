@@ -1,0 +1,12 @@
+<!doctype html>
+<title>Anthony Biel</title>
+<link rel="stylesheet" href="{{ url_for('base_structure_bp.static', filename='style.css') }}">
+<nav>
+    <h1>Anthony Biel</h1>
+    <ul>
+        <li><a href="{{ url_for('home_page_bp.home') }}">Home</a>
+        <li><a href="{{ url_for('cv_page_bp.cv') }}">CV</a>
+        <li><a href="{{ url_for('projects_page_bp.projects') }}">Projects</a>
+        <li><a href="{{ url_for('contact_page_bp.contact') }}">Contact</a>
+    </ul>
+</nav>

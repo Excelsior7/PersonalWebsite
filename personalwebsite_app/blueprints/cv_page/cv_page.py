@@ -6,3 +6,7 @@ cv_bp = Blueprint(name='cv_page_bp',
                     static_folder='static',
                     template_folder='templates/cv_page',
                     url_prefix="/cv");
+
+@cv_bp.route('/')
+def cv():
+    return render_template('cv.html');
