@@ -1,0 +1,1 @@
+# this file "transforms" the home_page folder to a package in order to be able to import from it.

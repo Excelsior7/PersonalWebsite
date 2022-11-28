@@ -21,10 +21,15 @@ def create_app(test_config=None):
     except OSError:
         pass;
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+
+    from personalwebsite_app.blueprints.contact_page.contact_page import contact_bp
+    app.register_blueprint(contact_bp);
+    from personalwebsite_app.blueprints.cv_page.cv_page import cv_bp
+    app.register_blueprint(cv_bp);
+    from personalwebsite_app.blueprints.home_page.home_page import home_bp
+    app.register_blueprint(home_bp);
+    from personalwebsite_app.blueprints.projects.projects_page import projects_page_bp
+    app.register_blueprint(projects_page_bp);
 
     return app;
 

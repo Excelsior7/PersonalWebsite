@@ -3,6 +3,6 @@
 
 *.pyc
 __pycache__/
-personalwebsite_app/__pycache__/
+*/__pycache__/
 
 instance/
