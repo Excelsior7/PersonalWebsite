@@ -1,0 +1,8 @@
+.personalwebsite_venv/
+.vscode/
+
+*.pyc
+__pycache__/
+personalwebsite_app/__pycache__/
+
+instance/
