@@ -1,1 +1,3 @@
-h1 {color: brown;}
+.cover-container {
+    max-width: 50em;
+}
