@@ -1,5 +1,6 @@
 import os 
-from flask import Flask
+from flask import Flask, url_for, redirect
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -20,6 +21,10 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path);
     except OSError:
         pass;
+
+    @app.route('/', methods=['GET'])
+    def root():
+        return redirect(url_for('home_page_bp.home'));
 
     from personalwebsite_app.blueprints.base_structure.base_structure import base_bp
     app.register_blueprint(base_bp);

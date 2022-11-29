@@ -7,6 +7,5 @@ base_bp = Blueprint(name='base_structure_bp',
                     template_folder='templates/base_structure',
                     url_prefix="/base");
 
-@base_bp.route('/')
-def base():
-    return render_template('base.html');
+
+

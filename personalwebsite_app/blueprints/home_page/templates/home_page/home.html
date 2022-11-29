@@ -1,1 +1,17 @@
-<h1>HOME PAGE</h1>
+{% extends base_html_loader %}
+
+{% block css_style %}
+<link rel="stylesheet" href="{{ url_for('home_page_bp.static', filename='style.css') }}">
+{% endblock %}
+
+{% block tab_title %}
+HOME
+{% endblock %}
+
+{% block header %}
+HEADER
+{% endblock %}
+
+{% block content %}
+CONTENT
+{% endblock %}
