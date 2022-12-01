@@ -1,1 +1,24 @@
-<h1>CV PAGE</h1>
+{% extends base_html_loader %}
+
+{% block css_style %}
+<link rel="stylesheet" href="{{ url_for('cv_page_bp.static', filename='style.css') }}">
+{% endblock %}
+
+{% block tab_title %}
+CV
+{% endblock %}
+
+{% block section_name %}
+CV
+{% endblock %}
+
+{% block header %}
+<header style="background-image: url({{url_for('cv_page_bp.static', filename='background_image_cv.png')}}); background-repeat:no-repeat; background-position-x:center;">
+</header>
+{% endblock %}
+
+{% block content %}
+<button type="button" class="btn btn-dark cv_link_button">
+    <a class="link_cv" href="{{url_for('cv_page_bp.static', filename='pdf_test.pdf')}}" target="_blank">PLEASE CLICK HERE TO OPEN MY CV ON YOUR BROWSER</a>
+</button>
+{% endblock %}

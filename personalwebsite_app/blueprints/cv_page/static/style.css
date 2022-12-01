@@ -1,1 +1,13 @@
-h1 {color: brown;}
+.cv_link_button {
+    width: 100%;
+}
+
+.link_cv {
+    color: white;
+    text-decoration: none;
+    --bs-link-hover-color: white;
+}
+
+.link_cv:hover {
+    text-decoration: underline;
+}
