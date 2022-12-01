@@ -18,7 +18,15 @@ CV
 {% endblock %}
 
 {% block content %}
-<button type="button" class="btn btn-dark cv_link_button">
-    <a class="link_cv" href="{{url_for('cv_page_bp.static', filename='pdf_test.pdf')}}" target="_blank">PLEASE CLICK HERE TO OPEN MY CV ON YOUR BROWSER</a>
+<button type="button" class="btn btn-dark cv_link_button" id="cv_link_button" onclick="openCV()">
+    PLEASE CLICK HERE TO OPEN MY CV ON YOUR BROWSER
 </button>
+{% endblock %}
+
+{% block js_script %}
+<script>
+    function openCV() {
+        window.open("{{url_for('cv_page_bp.static', filename='pdf_test.pdf')}}", '_blank');
+    }
+</script>
 {% endblock %}

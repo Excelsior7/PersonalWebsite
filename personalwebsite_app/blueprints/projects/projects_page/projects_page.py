@@ -1,5 +1,41 @@
+from enum import Enum
 from flask import Blueprint, render_template, abort
 from jinja2 import TemplateNotFound
+from personalwebsite_app.jinja2_env import base_structure_jinja2_env
+
+class PROJECT_TYPE(Enum): 
+    CV = "CV";
+    DL = "DL";
+    GM = "GM";
+    IR = "IR";
+    ML = "ML";
+    NLP = "NLP";
+    RS = "RS";
+
+class Projects():
+    def __init__(self, project_type: PROJECT_TYPE, project_title: str, project_description: str):
+        self.project_type = project_type.value;
+        self.project_title = project_title;
+        self.project_description = project_description;
+
+projects_objects = [
+    Projects(
+        PROJECT_TYPE.CV,
+        "Object Detection in Video", 
+        "Given an input video, produce the same video with bounding boxes around the object of interest to the user."),
+    Projects(
+        PROJECT_TYPE.NLP,
+        "Machine Translation EN->FR", 
+        "Simple Transformer-based architecture machine translation algorithm going from English to French"),
+    Projects(
+        PROJECT_TYPE.NLP,
+        "Named-Entity Recognition", 
+        "Extract from the text given as input some named entities present in it. A named entity is a group of words and/or symbols with a specific meaning."),
+    Projects(
+        PROJECT_TYPE.IR,
+        "Information Retrieval", 
+        "Propose a list of movies ordered by relevance according to the user's query."),
+    ]
 
 projects_page_bp = Blueprint(name='projects_page_bp', 
                     import_name=__name__,
@@ -9,4 +45,5 @@ projects_page_bp = Blueprint(name='projects_page_bp',
 
 @projects_page_bp.route('/')
 def projects():
-    return render_template('projects.html');
+    base_html_loader = base_structure_jinja2_env.get_template("base.html");
+    return render_template('projects.html', base_html_loader=base_html_loader, projects_objects=projects_objects);

@@ -1,1 +1,38 @@
-<h1>PROJECTS PAGE</h1>
+{% extends base_html_loader %}
+
+{% block css_style %}
+<link rel="stylesheet" href="{{ url_for('projects_page_bp.static', filename='style.css') }}">
+{% endblock %}
+
+
+{% block tab_title %}
+Projects
+{% endblock %}
+
+{% block section_name %}
+PROJECTS
+{% endblock %}
+
+{% block header %}
+<header class="background_image_home" 
+style="background-image: url({{url_for('projects_page_bp.static', filename='background_image_projects_page.png')}}); background-repeat: no-repeat; background-position-x: center;">
+</header>
+{% endblock %}
+
+{% block content %}
+<div class="container_project_cards">
+    {% for project_obj in projects_objects %} 
+    <div class="card project_card">
+        <img src="{{url_for('projects_page_bp.static', filename=project_obj.project_type+'.png')}}" class="card-img-top">
+        <div class="card-body">
+          <h5>{{project_obj.project_title}}</h5>
+          <p class="card-text">{{project_obj.project_description}}</p>
+          <button type="button" class="btn btn-dark">Open project</button>
+        </div>
+      </div>
+    {% endfor %}
+</div>
+{% endblock %}
+
+"{% block js_script %}"
+"{% endblock %}"

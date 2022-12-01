@@ -26,7 +26,7 @@
                 </a>
                 <i class="fa fa-envelope" onclick="showEmail()"></i>
               </div>
-              <p id="email">
+              <p id="email" style="visibility: hidden;">
                 anthony.biel__at__icloud.com
               </p>
             </div>
@@ -52,8 +52,8 @@
           </div>
       </nav>
 
-      <section class="content">
-        <div>
+      <section class="base_content">
+        <div class="base_header">
           <h5><span>{% block section_name %}{% endblock %}</span></h5>
           {% block header %}{% endblock %}
         </div>
@@ -65,15 +65,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
     <script>
       function showEmail() {
-        email_state = document.getElementById("email").style.display;
+        email_state = document.getElementById("email").style.visibility;
 
-        if (email_state == "block") {
-          document.getElementById("email").style.display = "none";
+        if (email_state == "hidden") {
+          document.getElementById("email").style.visibility = "visible";
         }
         else {
-          document.getElementById("email").style.display = "block";
+          document.getElementById("email").style.visibility = "hidden";
         }        
       }
     </script>
+
+    {% block js_script %}{% endblock %}
   </body>
 </html>
