@@ -10,6 +10,20 @@
 .content header {
   display: flex;
   justify-content: center;
+  margin-bottom: 30px;
+  height: 200px;
+  margin-top: 20px;
+}
+
+.content h5 { 
+  width:100%; 
+  text-align:center; 
+  border-bottom: 1px solid #000; 
+  line-height:0.1em;
   margin-top: 50px;
-  margin-bottom: 50px;
+} 
+
+.content h5 span { 
+  background:#fff; 
+  padding:0 10px; 
 }

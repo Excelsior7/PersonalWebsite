@@ -51,10 +51,11 @@
         </nav>
 
         <section class="content">
-          <header>
-            <h1>{% block header %}{% endblock %}</h1>
-          </header>
-          {% block content %}{% endblock %}
+          <div>
+            <h5><span>{% block section_name %}{% endblock %}</span></h5>
+            {% block header %}{% endblock %}
+          </div>
+            {% block content %}{% endblock %}
         </section>
 
       </div>

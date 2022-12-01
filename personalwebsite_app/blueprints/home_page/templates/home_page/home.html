@@ -5,13 +5,144 @@
 {% endblock %}
 
 {% block tab_title %}
+Home
+{% endblock %}
+
+{% block header_picture %}
+{{url_for('home_page_bp.static', filename='background_image_home.png')}}
+{% endblock %}
+
+{% block section_name %}
 HOME
 {% endblock %}
 
+
 {% block header %}
-HEADER
+<header class="background_image_home" 
+style="background-image: url({{url_for('home_page_bp.static', filename='background_image_home.png')}}); background-repeat: no-repeat; background-position-x: center;">
+</header>
 {% endblock %}
 
 {% block content %}
-CONTENT
+<div class="block_content">
+    <img src="{{url_for('home_page_bp.static', filename='me.png')}}" class="personal_photo">
+    <div class="home_content">
+        Hi! As you may have guessed, my name is Anthony Biel. I am a self-taught junior Machine Learning engineer 
+        who is passionate about the three pillars of the discipline, namely: Intelligence, Mathematics, and Computer Science. 
+        My motto is ∇Excelsior, the nabla symbol ∇ is a reminder of the gradient that supports the importance of working smart, 
+        and Excelsior (meaning "Ever Upward") supports the importance of consistency and discipline.
+    </div>
+</div>
+<div class="block_content_footer">
+    <div>
+        <p>
+            <button class="btn btn-dark collapsed content_collapse_button" type="button" data-bs-toggle="collapse" data-bs-target="#a" aria-expanded="false" aria-controls="a">
+                So you're self-taught ?
+            </button>
+          </p>
+          <div">
+            <div class="collapse-horizontal collapse content_collapse_div" id="a">
+              <div class="card card-body content_collapse">
+                The fact that I didn't go to university makes me what we call a "self-taught". 
+                And this personal adventure has convinced me that in the age of the internet, 
+                for certain disciplines, like computer science for example, 
+                which can be practiced with a computer and an internet connection, 
+                it is possible to create your own university. 
+              </div>
+            </div>
+          </div>
+    </div>
+    <div>
+        <p>
+            <button class="btn btn-dark collapsed content_collapse_button" type="button" data-bs-toggle="collapse" data-bs-target="#b" aria-expanded="false" aria-controls="b">
+                What exactly do you mean by your "own university" ?
+            </button>
+          </p>
+          <div">
+            <div class="collapse-horizontal collapse content_collapse_div" id="b">
+              <div class="card card-body content_collapse">
+                <p>
+                    First of all, I want to make it clear that I really like the traditional university and what it has to offer. 
+                    The choice I made depended on various factors, including the different alternatives available to me, the focus 
+                    of my studies which fit well with this choice and the fact that I am convinced of one thing: 
+                    what really counts in the end is not a diploma but the value of the individual behind it.
+                </p>
+                
+                <p>
+                    What I call my own university is an alternative way (which, in some cases, can make sense) 
+                    to acquire some knowledge using only the internet and books.
+                </p>
+
+                <p>
+                    In order to have a better visibility of what it was like for me, I will try to briefly define 
+                    the major components of a traditional university and then try to project these different 
+                    components into this alternative way of education.
+                </p>
+
+                <p>
+                    I think the traditional university has four major components.
+                    <ul>
+                        <li> The <strong>first component</strong> is <strong>efficiency</strong>: given what the student wants to study, 
+                            the university shows him a coherent path that, if well defined and followed, will allow 
+                            him to acquire the necessary knowledge in the right order.</li>
+                        <li> The <strong>second component</strong> is <strong>learning</strong> : given the path previously obtained made up 
+                            of different blocks of knowledge, the university gathers for each of these blocks, the right tools, 
+                            a pedagogical support as well as a teacher to deliver the content.</li>
+                        <li>The <strong>third component</strong> is <strong>help</strong> : given a block of knowledge, the student can ask 
+                            for help from the teacher or technical advisors. </li>
+                        <li>The <strong>fourth component </strong> is <strong>sociability</strong>: being surrounded by interesting people 
+                            with whom to have interesting conversations.</li>
+                    </ul>
+                </p>
+
+                <p>
+                    Now, let's come to the comparison.
+
+                    <ul>
+                        <li>
+                            For the <strong>first component</strong>, <strong>efficiency</strong>, the internet and its multiple resources 
+                            can allow us to define this coherent path, and very often it is even possible to have an overview of the different 
+                            blocks on this path with the reason of the chosen organization. Universities being often at the origin of the evolution 
+                            of this path, by their force of discovery and their capacity to filter those of the others, it is also interesting 
+                            to consult directly their syllabus in order to have information potentially still little democratized.
+                        </li>
+                        <li>
+                            For the <strong>second component</strong>, <strong>learning</strong>, the desire of some to share their knowledge 
+                            with new information and/or different perspectives and sometimes even trying to improve the transmission of information 
+                            by using new technologies has made others happy, especially students like me. 
+                            The ability to choose the person with whom we want to invest our time.  
+                            The ability to evolve at your own pace, to go faster or slower when it makes sense, 
+                            to be sure that you have mastered subject A before moving on to B which is based on A. 
+                            The ability to choose the best for each block of knowledge, 
+                            learning linear algebra with professor Pavel Grinfeld (MathTheBeautiful), 
+                            probability with professor Joseph Blitzstein (Statistics 110: Probability), 
+                            deep learning with professor Andrej Karpathy (CS231n), 
+                            it has just been a wonderful experience.
+                        </li>
+                        <li>
+                            For the <strong>third component</strong>, <strong>help</strong>, it is likely that in some cases, a student's 
+                            request for help will be answered more quickly and appropriately in the case of the traditional university 
+                            but I managed to turn this flaw into a strength, especially by learning to search for information, 
+                            learning to ask better questions if you hope to get better answers, learning to sort out the information, 
+                            learning to evaluate it by yourself. 
+                        </li>
+                        <li>
+                            For the <strong>fourth component</strong>, <strong>sociability</strong>, it is true that my alternative loses a big point. 
+                            While there is some form of sociability on the internet, and it is still possible to have/attend rich conversations, 
+                            that for my part does not replace the quality of that experience at a traditional university. 
+                        </li>
+                    </ul>
+                </p>
+
+                <p>
+                    This magnificent adventure also instilled in me discipline, perseverance, and efficiency in the use of my energy, 
+                    hence ∇Excelsior, which is a personal symbolic representation of these lessons.
+                </p>
+
+              </div>
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}

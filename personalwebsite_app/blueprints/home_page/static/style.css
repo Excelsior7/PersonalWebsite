@@ -1,1 +1,38 @@
-h1 {color: brown;}
+.block_content {
+    display: flex;
+    align-items: center;
+}
+
+@media (max-width: 767.98px) { 
+    .block_content {
+        flex-direction: column;
+        text-align: center;
+        margin-bottom: 30px;
+    }
+}
+
+.personal_photo {
+    clip-path: circle(100px);
+    width: 300px;
+    height: auto;
+}
+
+.background_image_home {
+    background-color: black;
+  }
+
+  .content_collapse_button {
+    width: 100%;
+  }
+
+  .content_collapse_div {
+    margin-bottom: 15px;
+  }
+
+  .content_collapse {
+    width: 100%;
+  }
+
+  strong {
+    display:inline;
+  }
