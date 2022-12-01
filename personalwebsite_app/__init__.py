@@ -28,8 +28,6 @@ def create_app(test_config=None):
 
     from personalwebsite_app.blueprints.base_structure.base_structure import base_bp
     app.register_blueprint(base_bp);
-    from personalwebsite_app.blueprints.contact_page.contact_page import contact_bp
-    app.register_blueprint(contact_bp);
     from personalwebsite_app.blueprints.cv_page.cv_page import cv_bp
     app.register_blueprint(cv_bp);
     from personalwebsite_app.blueprints.home_page.home_page import home_bp
