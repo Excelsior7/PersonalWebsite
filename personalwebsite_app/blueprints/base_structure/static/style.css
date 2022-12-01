@@ -1,10 +1,27 @@
+#email {
+  display: none;
+  font-size: 14px;
+}
+
 .cover-container {
     max-width: 50em;
 }
 
+.container {
+  align-items: flex-start !important;
+}
+
 .navbar-brand-fa {
   display: flex;
-  align-items: center;
+}
+
+.navbar-brand-fa i {
+  font-size:24px;
+  margin-top:7px;
+}
+
+.fa-github {
+  margin-right:7px;
 }
 
 .content header {
