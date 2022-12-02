@@ -35,6 +35,15 @@ def create_app(test_config=None):
     from personalwebsite_app.blueprints.projects.projects_page.projects_page import projects_page_bp
     app.register_blueprint(projects_page_bp);
 
+    from personalwebsite_app.blueprints.projects.project_id_1.project_id_1 import project_id_1_bp
+    app.register_blueprint(project_id_1_bp);
+    from personalwebsite_app.blueprints.projects.project_id_2.project_id_2 import project_id_2_bp
+    app.register_blueprint(project_id_2_bp);
+    from personalwebsite_app.blueprints.projects.project_id_3.project_id_3 import project_id_3_bp
+    app.register_blueprint(project_id_3_bp);
+    from personalwebsite_app.blueprints.projects.project_id_4.project_id_4 import project_id_4_bp
+    app.register_blueprint(project_id_4_bp);
+
     return app;
 
 app = create_app();

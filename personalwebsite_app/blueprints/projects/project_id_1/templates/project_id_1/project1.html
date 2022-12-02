@@ -1,0 +1,99 @@
+{% extends project_base_html_loader %}
+
+{% block css_style %}
+<link rel="stylesheet" href="{{ url_for('project_id_1_bp.static', filename='style.css') }}">
+{% endblock %}
+
+{% block tab_title %}
+CV
+{% endblock %}
+
+{% block project_title %}
+Object Detection in Video
+{% endblock %}
+
+{% block github_repo %}
+https://github.com/Excelsior7/CVProjects/tree/main/ObjectDetection
+{% endblock %}
+
+{% block project_description %}
+<p>
+    The goal of this little project was to create an object detection algorithm that 
+    takes as input a video along with the names of objects the user wants the algorithm 
+    to detect in the video, and a threshold of confidence T. Then, the algorithm outputs 
+    a new video with bounding boxes around each occurrence of each object of interest to 
+    the user if the object appears in the video and the algorithm detects 
+    it with confidence greater or equal than T.
+</p>
+
+<p>
+    More specifically, how to use the code in order to have the expected results as described above:
+
+    <ol>
+        <li>- You instantiate one object <strong>objectDetectorInVideo</strong>.</li>
+        <li>- From your instance you call the function <strong>def objectDetectionInVideo</strong> with the following parameters:
+        <ol>
+            <li>- The path of the input video. (e.g. “./path/to/input/video/input.mp4”)</li>
+            <li>- The path of the output video. (e.g. “./path/to/output/video/output.mp4”)</li>
+            <li>- A threshold T, such that T is a real number between 0 and 1. (e.g. 0.9)</li>
+            <li>- The objects of interest as a list of strings. (e.g. [“person”, “umbrella”]) 
+                To see all the objects manipulated by the code and the correct way to write them for input, 
+                please refer to <a href="https://cocodataset.org/#explore" target="_blank">COCO Explorer</a>.</li>
+        </ol>
+        </li>
+        <li>- Done.</li>
+    </ol>
+</p>
+
+<p>
+    <em>Note: For this project, I chose not to provide a simple interface to upload -> process -> output 
+        the video because the processing part can be very time/resource consuming 
+        depending on the time and resolution of the video.</em> 
+</p>
+{% endblock %}
+
+{% block project_content %}
+<div class="google_div border border-3 rounded-4">
+    <p>
+        <strong>Short story behind this project:</strong>
+        <br>
+        This small project was proposed to me during an interview 
+        by a company for which I had applied as an intern. 
+        It was my first concrete project in the world of computer vision. 
+        You can see the description of the interview in the screenshot below 
+        (I have blurred out some confidential information). 
+        The time constraint was 72 hours. 
+        The code on github and the result below were my results after these 72 hours.
+    </p>
+</div>
+
+<div class="interview_description google_div border border-3 rounded-4 mt-3">
+    <p>
+        <strong>Interview description:</strong>
+    </p>
+    <img src="{{url_for('project_id_1_bp.static', filename='interview_description.png')}}" class="img-fluid" alt="interview description">
+
+</div>
+
+<div class="video_section google_div border border-3 rounded-4 mt-3 mb-4">
+    <div class="input">
+        <div class="input_output"><strong>INPUT</strong></div>
+        <video width="320" height="240" controls>
+            <source src="{{url_for('project_id_1_bp.static', filename='miss_dior.mp4')}}" type="video/mp4">
+        </video>
+    </div>
+    <div class="process">
+        <div><strong>PROCESS</strong></div>
+        <i class="fa fa-arrow-right arrow_right" style="font-size: 50px;"></i>
+        <i class="fa fa-arrow-down arrow_down" style="font-size: 50px;"></i>
+    </div>
+    <div class="output">
+        <div class="input_output"><strong>OUTPUT</strong></div>
+        <video width="320" height="240" controls>
+            <source src="{{url_for('project_id_1_bp.static', filename='miss_dior_output.mp4')}}" type="video/mp4">
+        </video>
+    </div>
+</div>
+
+
+{% endblock %}

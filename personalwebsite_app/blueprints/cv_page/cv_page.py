@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, abort
+from flask import Blueprint, render_template, redirect, url_for, abort
 from jinja2 import TemplateNotFound
 from personalwebsite_app.jinja2_env import base_structure_jinja2_env
 
@@ -13,3 +13,7 @@ cv_bp = Blueprint(name='cv_page_bp',
 def cv():
     base_html_loader = base_structure_jinja2_env.get_template("base.html");
     return render_template('cv.html', base_html_loader=base_html_loader);
+
+@cv_bp.route('/pdf')
+def cvRouting():
+    return redirect(url_for('cv_page_bp.static', filename='pdf_test.pdf'));

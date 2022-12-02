@@ -1,0 +1,56 @@
+/* For each div you want "Google" like div borders 
+Add as bootstrap class: border border-3 rounded-4 
+Plus the following google_div class */
+
+.google_div {
+    box-shadow: 2px 2px 1px #dadce0;
+    padding: 10px;
+}
+
+/* copy-paste: google_div border border-3 rounded-4 */
+/* ----------------------------------------------*/
+
+
+body {
+    display: flex;
+    justify-content: center;
+}
+
+.projects_container {
+    max-width: 70em;
+}
+
+.project_metadata {
+margin-top: 20px;
+}
+
+.project_title {
+    display: flex;
+    align-items: baseline;
+}
+
+.project_title h4 {
+    margin-right: 10px;
+}
+
+.project_description {
+    margin-top: 20px;
+}
+
+.DESCRIPTION {
+    background-color: black;
+    color: white;
+    padding: 5px 0px 5px 10px;
+    border-radius: 10px;
+}
+
+.project_content {
+    margin-top: 30px;
+}
+
+.PROJECT {
+    background-color: black;
+    color: white;
+    padding: 5px 0px 5px 10px;
+    border-radius: 10px;
+}

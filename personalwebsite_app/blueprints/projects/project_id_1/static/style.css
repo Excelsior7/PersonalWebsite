@@ -1,0 +1,74 @@
+ol {
+    counter-reset: item
+}
+
+li {
+    display: block
+}
+
+li:before {
+    content: counters(item, ".") " ";
+    counter-increment: item
+}
+
+.video_section {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.input {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.process {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.output {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.input_output {
+    position: relative;
+    top: 20px;
+}
+
+@media (min-width: 800px) { 
+    
+    .video_section {
+        flex-direction: row;
+    }
+    .arrow_right {
+        display: block!important;
+    } 
+    .arrow_down {
+        display: none!important;
+    }
+}
+
+@media (max-width: 799px) { 
+
+    .video_section {
+        flex-direction: column;
+    }
+    .arrow_right {
+        display: none!important;
+    } 
+    .arrow_down {
+        display: block!important;
+    }
+
+    .process {
+        margin-top: 50px;
+        margin-bottom: 30px;
+    }
+}
