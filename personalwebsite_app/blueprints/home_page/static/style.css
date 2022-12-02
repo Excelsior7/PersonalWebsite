@@ -18,21 +18,24 @@
 }
 
 .background_image_home {
-    background-color: black;
-  }
+  background-color: black;
+}
 
-  .content_collapse_button {
-    width: 100%;
-  }
-
-  .content_collapse_div {
-    margin-bottom: 15px;
-  }
-
-  .content_collapse {
-    width: 100%;
-  }
-
-  strong {
+strong {
     display:inline;
-  }
+}
+
+.block_content_footer {
+    margin-bottom: 40px;
+}
+
+/* ACCORDION CSS */
+
+.accordion-button:not(.collapsed) {
+    color: #ffffff!important;
+    background-color: #000000!important;
+}
+  
+.accordion-button:focus {
+    box-shadow: none!important;
+}

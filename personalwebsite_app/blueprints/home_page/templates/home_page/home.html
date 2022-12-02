@@ -28,34 +28,59 @@ style="background-image: url({{url_for('home_page_bp.static', filename='backgrou
         and Excelsior (meaning "Ever Upward") supports the importance of consistency and discipline.
     </div>
 </div>
+
+
 <div class="block_content_footer">
-    <div>
-        <p>
-            <button class="btn btn-dark collapsed content_collapse_button" type="button" data-bs-toggle="collapse" data-bs-target="#a" aria-expanded="false" aria-controls="a">
-                So you're self-taught ?
+    <div class="accordion">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingOne">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                <strong>So you're self-taught ?</strong>
             </button>
-          </p>
-          <div">
-            <div class="collapse-horizontal collapse content_collapse_div" id="a">
-              <div class="card card-body content_collapse">
-                The fact that I didn't go to university makes me what we call a "self-taught". 
-                And this personal adventure has convinced me that in the age of the internet, 
-                for certain disciplines, like computer science for example, 
-                which can be practiced with a computer and an internet connection, 
-                it is possible to create your own university. 
-              </div>
+          </h2>
+          <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
+
+                <p>
+                    The fact that I didn't go to university makes me what we call a "self-taught". 
+                    But according to the first definition that Google gives us when we search 
+                    for "self-taught meaning", it corresponds to, I quote:
+                </p>
+                <p>
+                    "having acquired knowledge or skill on one's own initiative rather 
+                    than through formal instruction or training."
+                </p>
+                <p>
+                    But this definition corresponds only partially to my personal adventure of self-taught.
+
+                    It is true that nobody forced me to start such an adventure, or nobody forced me to learn 
+                    on a daily basis, and in this case we can indeed say that this process was based on my own initiative. 
+    
+                    But I think one of the main reasons that in the current world we link the self-taught to the amateur 
+                    is the second part of the definition: "rather than through formal instruction or training."
+                </p>
+                <p>
+                    So it's true, I wasn't getting ready for college in the morning, but that didn't stop me 
+                    from having a very structured schedule, dictating what to study, when to get up, study, eat, work out, sleep. 
+    
+                    My point is that the definition and the representation of the self-taught person in the social 
+                    schema could lead one to believe that the self-taught person just learns what he or she wants 
+                    to learn and when he or she wants to learn it. 
+                </p>
+                <p>
+                    So what I like to say is that I studied at my own university.
+                </p>
             </div>
           </div>
-    </div>
-    <div>
-        <p>
-            <button class="btn btn-dark collapsed content_collapse_button" type="button" data-bs-toggle="collapse" data-bs-target="#b" aria-expanded="false" aria-controls="b">
-                What exactly do you mean by your "own university" ?
+        </div>
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="headingTwo">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                <strong>What exactly do you mean by your "own university" ?</strong> 
             </button>
-          </p>
-          <div">
-            <div class="collapse-horizontal collapse content_collapse_div" id="b">
-              <div class="card card-body content_collapse">
+          </h2>
+          <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+            <div class="accordion-body">
                 <p>
                     First of all, I want to make it clear that I really like the traditional university and what it has to offer. 
                     The choice I made depended on various factors, including the different alternatives available to me, the focus 
@@ -108,7 +133,7 @@ style="background-image: url({{url_for('home_page_bp.static', filename='backgrou
                             The ability to choose the person with whom we want to invest our time.  
                             The ability to evolve at your own pace, to go faster or slower when it makes sense, 
                             to be sure that you have mastered subject A before moving on to B which is based on A. 
-                            The ability to choose the best for each block of knowledge, 
+                            The ability to choose what we consider the best for each block of knowledge, 
                             learning linear algebra with professor Pavel Grinfeld (MathTheBeautiful), 
                             probability with professor Joseph Blitzstein (Statistics 110: Probability), 
                             deep learning with professor Andrej Karpathy (CS231n), 
@@ -118,8 +143,8 @@ style="background-image: url({{url_for('home_page_bp.static', filename='backgrou
                             For the <strong>third component</strong>, <strong>help</strong>, it is likely that in some cases, a student's 
                             request for help will be answered more quickly and appropriately in the case of the traditional university 
                             but I managed to turn this flaw into a strength, especially by learning to search for information, 
-                            learning to ask better questions if you hope to get better answers, learning to sort out the information, 
-                            learning to evaluate it by yourself. 
+                            learning to ask better questions if I hope to get better answers, learning to sort out the information, 
+                            learning to evaluate it by myself. 
                         </li>
                         <li>
                             For the <strong>fourth component</strong>, <strong>sociability</strong>, it is true that my alternative loses a big point. 
@@ -133,12 +158,10 @@ style="background-image: url({{url_for('home_page_bp.static', filename='backgrou
                     This magnificent adventure also instilled in me discipline, perseverance, and efficiency in the use of my energy, 
                     hence ∇Excelsior, which is a personal symbolic representation of these lessons.
                 </p>
-
-              </div>
             </div>
+          </div>
         </div>
     </div>
-
 </div>
 {% endblock %}
 
