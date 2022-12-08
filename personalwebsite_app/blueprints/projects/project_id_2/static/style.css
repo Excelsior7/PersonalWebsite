@@ -1,0 +1,33 @@
+.machine_translation_section .input_output_toggler{
+    padding: 10px;
+}
+
+.machine_translation_section .translation{
+    display: flex;
+    justify-content: space-around;
+}
+
+.translation form {
+    resize: none;
+    display: flex;
+    flex-direction: column;
+}
+
+.translation form textarea{
+    resize: none;
+}
+
+.translation form div{
+    display: flex;
+    justify-content: space-between;
+}
+
+@media (max-width: 1000px) { 
+    .machine_translation_section .translation{
+        flex-direction: column;
+    }
+
+    .machine_translation_section .translation .input{
+        margin-bottom: 50px;
+    }
+}

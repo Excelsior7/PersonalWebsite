@@ -1,1 +1,163 @@
-<h1>PROJECT2</h1>
+{% extends project_base_html_loader %}
+
+{% block css_style %}
+<link rel="stylesheet" href="{{ url_for('project_id_2_bp.static', filename='style.css') }}">
+{% endblock %}
+
+{% block tab_title %}
+NLP
+{% endblock %}
+
+{% block project_title %}
+Machine Translation EN <-> FR
+{% endblock %}
+
+{% block github_repo %}
+https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
+{% endblock %}
+
+{% block project_description %}
+<p>
+    Machine translation was my first significant PyTorch application. 
+    The interesting problem of machine translation has been a support 
+    for comparison of various architectures along my training in deep learning. 
+    At first, in the order of my training, I approached the problem using a 
+    recurrent neural network, more specifically the 
+    <a href="https://github.com/Excelsior7/NLPProjects/blob/main/MachineTranslation/LSTM_implementation.md" target="_blank">LSTM</a> architecture. 
+    Then the chapter on attention mechanisms appeared. To begin with I implemented the
+    <a href="https://github.com/Excelsior7/NLPProjects/blob/main/MachineTranslation/Bahdanau_implementation.md" target="_blank">Bahdanau attention</a>, 
+    and finally the famous architecture proposed in <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank">Attention Is All You Need</a> 
+    was the one that gave me the best results, hence the use of the latter for the presentation of this project.
+</p>
+<p>
+    Behind the results you will get below is an encoder-decoder 
+    Transformer-based architecture. The parameters were trained 
+    from scratch on the English-French dataset by <a href="http://www.manythings.org/anki/" target="_blank">manythings.org</a> 
+    using the Adam optimizer and the Cross Entropy loss function.
+</p>
+<p>
+    I chose to only manage the translation between English and French, 
+    because my familiarity of these two languages allows me to easily reason 
+    about the structure of the language and the translation results obtained.
+</p>
+<p>
+    Through each project, I try to show one or several skills that I consider 
+    necessary in the toolbox of a machine learning engineer. In this case, 
+    it is the implementation of a rather large architecture using a 
+    Deep Learning framework (as it may be necessary when a paper is released by the community 
+    presenting a new architecture), the training of the model from scratch, 
+    and the release of this model. 
+</p>
+{% endblock %}
+
+{% block project_content %}
+<div class="google_div border border-3 rounded-4">
+    I propose below a simple interface that can receive up to 300 characters 
+    maximum in input in order to have enough to investigate the capabilities and flaws 
+    of the model while avoiding unnecessary overload on the server.
+</div>
+
+<!-- ENGLISH TO FRENCH -->
+
+<div id="en_to_fr" style="display:{{en_to_fr_display}}" class="machine_translation_section google_div border border-3 rounded-4 mt-3 mb-4">
+    <div class="input_output_toggler mb-4">
+        <form>
+            <legend>Select a translation direction:</legend>
+            <div>
+              <input type="radio" id="en_fr_1" checked="checked">
+              <label for="en_fr_1">EN -> FR</label>
+            </div>
+        
+            <div>
+              <input type="radio" id="fr_en_1" onclick="toggleTranslationLanguage()">
+              <label for="fr_en_1">FR -> EN</label>
+            </div>
+        </form>
+    </div>
+    <div class="translation">
+        <div class="input">
+            <form action="{{ url_for('project_id_2_bp.translateEnglishToFrench') }}" method="post">
+                <div>
+                    <label for="input"><strong>INPUT:</strong></label>
+                    <label for="input"><strong>ENGLISH</strong></label>
+                </div>
+                <textarea id="input" name="input" rows="10" cols="37" maxlength="300" required>{{en_input}}</textarea>
+                <input class="btn blackbutton_form_submit_w100 mt-3" type="submit" value="Translate">
+            </form>
+        </div>
+        <div class="output">
+            <form>
+                <div>
+                    <label for="output"><strong>OUTPUT:</strong></label>
+                    <label for="output"><strong>FRENCH</strong></label>
+                </div>
+                <textarea id="output" name="output" rows="10" cols="37" disabled>{{en_to_fr_translation}}</textarea>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- FRENCH TO ENGLISH -->
+
+<div id="fr_to_en" style="display:{{fr_to_en_display}}" class="machine_translation_section google_div border border-3 rounded-4 mt-3 mb-4">
+    <div class="input_output_toggler mb-4">
+        <form>
+            <legend>Select a translation direction:</legend>
+            <div>
+              <input type="radio" id="en_fr_2" onclick="toggleTranslationLanguage()">
+              <label for="en_fr_2">EN -> FR</label>
+            </div>
+        
+            <div>
+              <input type="radio" id="fr_en_2" checked="checked">
+              <label for="fr_en_2">FR -> EN</label>
+            </div>
+        </form>
+    </div>
+    <div class="translation">
+        <div class="input">
+            <form action="{{ url_for('project_id_2_bp.translateFrenchToEnglish') }}" method="post">
+                
+                <div>
+                    <label for="input"><strong>INPUT:</strong></label>
+                    <label for="input"><strong>FRENCH</strong></label>
+                </div>
+                <textarea id="input" name="input" rows="10" cols="37" maxlength="300" required>{{fr_input}}</textarea>
+                <input class="btn blackbutton_form_submit_w100 mt-3" type="submit" value="Translate">
+            </form>
+        </div>
+        <div class="output">
+            <form>
+                <div>
+                    <label for="output"><strong>OUTPUT:</strong></label>
+                    <label for="output"><strong>ENGLISH</strong></label>
+                </div>
+                <textarea id="output" name="output" rows="10" cols="37" disabled>{{fr_to_en_translation}}</textarea>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}
+
+{% block js_script %}
+<script>
+    function toggleTranslationLanguage() {
+        en_to_fr_div_display = document.getElementById("en_to_fr").style.display;
+
+        if (en_to_fr_div_display == "block") {
+            document.getElementById("en_to_fr").style.display = "none";
+            document.getElementById("fr_to_en").style.display = "block";
+        }
+        else {
+            document.getElementById("en_to_fr").style.display = "block";
+            document.getElementById("fr_to_en").style.display = "none";
+        }
+        
+        document.getElementById("fr_en_1").checked = false;
+        document.getElementById("en_fr_2").checked = false;
+
+}
+</script>
+{% endblock %}
