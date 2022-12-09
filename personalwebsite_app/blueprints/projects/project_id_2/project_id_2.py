@@ -1,6 +1,20 @@
 from flask import Blueprint, render_template, request, abort
 from jinja2 import TemplateNotFound
 from personalwebsite_app.jinja2_env import projects_base_structure_jinja2_env
+from torch import no_grad 
+
+## The Vocab import is used to load the vocabularies when pickle.load(...) is called.
+## (see: https://stackoverflow.com/questions/27732354/unable-to-load-files-using-pickle-and-multiple-modules)
+from ..project_id_2.machine_translation.Transformer_implementation import Vocab
+from ..project_id_2.machine_translation.Transformer_implementation import loadModel
+from ..project_id_2.machine_translation.Transformer_implementation import translateUserInput
+from ..project_id_2.machine_translation.Transformer_implementation import standardizeOutput
+
+en_to_fr_model, en_source_vocab, fr_target_vocab  = loadModel(en_to_fr=True, load_parameters=True);
+en_to_fr_model.eval();
+
+fr_to_en_model, fr_source_vocab, en_target_vocab  = loadModel(en_to_fr=False, load_parameters=True);
+fr_to_en_model.eval();
 
 
 project_id_2_bp = Blueprint(name='project_id_2_bp', 
@@ -20,8 +34,9 @@ def project2():
 
 @project_id_2_bp.route('/en', methods=['POST'])
 def translateEnglishToFrench():
-    en_input = request.form['input'];
-    en_to_fr_translation = en_input + "english";
+    en_input = request.form['input'].lower();
+    with no_grad():
+        en_to_fr_translation = standardizeOutput(translateUserInput(en_input, en_to_fr_model, en_source_vocab, fr_target_vocab));
 
     project_base_html_loader = projects_base_structure_jinja2_env.get_template("projects_base_structure.html");
     return render_template('project2.html', 
@@ -34,8 +49,9 @@ def translateEnglishToFrench():
 
 @project_id_2_bp.route('/fr', methods=['POST'])
 def translateFrenchToEnglish():
-    fr_input = request.form['input'];
-    fr_to_en_translation = fr_input + "french";
+    fr_input = request.form['input'].lower();
+    with no_grad():
+        fr_to_en_translation = standardizeOutput(translateUserInput(fr_input, fr_to_en_model, fr_source_vocab, en_target_vocab));
 
     project_base_html_loader = projects_base_structure_jinja2_env.get_template("projects_base_structure.html");
     return render_template('project2.html', 
