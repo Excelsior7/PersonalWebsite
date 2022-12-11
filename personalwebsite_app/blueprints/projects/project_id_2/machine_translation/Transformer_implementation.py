@@ -356,7 +356,7 @@ def loadVocab(en_to_fr):
 
         return fr_source_vocab, en_target_vocab;
 
-def loadModel(en_to_fr, load_parameters=False):
+def loadModel(en_to_fr, load_parameters=False, load_on_cpu=True):
 
     source_vocab, target_vocab = loadVocab(en_to_fr);
 
@@ -374,12 +374,21 @@ def loadModel(en_to_fr, load_parameters=False):
     model = EncoderDecoder(encoder, decoder);
 
     if load_parameters:
-        if en_to_fr:
-            checkpoint = torch.load('./saved_objects/parameters_Transformer_en_to_fr.pt');
+        if load_on_cpu:
+            if en_to_fr:
+                checkpoint = torch.load('./saved_objects/parameters_Transformer_en_to_fr.tar', map_location=torch.device('cpu'));
+            else:
+                checkpoint = torch.load('./saved_objects/parameters_Transformer_fr_to_en.tar', map_location=torch.device('cpu'));
         else:
-            checkpoint = torch.load('./saved_objects/parameters_Transformer_fr_to_en.pt');
+            if en_to_fr:
+                checkpoint = torch.load('./saved_objects/parameters_Transformer_en_to_fr.tar');
+            else:
+                checkpoint = torch.load('./saved_objects/parameters_Transformer_fr_to_en.tar');
 
         model.load_state_dict(checkpoint['model_state_dict']);
+
+    if load_on_cpu == False:
+        model.to(torch.device('cuda'));
 
     return model, source_vocab, target_vocab;
 

@@ -10,10 +10,10 @@ from ..project_id_2.machine_translation.Transformer_implementation import loadMo
 from ..project_id_2.machine_translation.Transformer_implementation import translateUserInput
 from ..project_id_2.machine_translation.Transformer_implementation import standardizeOutput
 
-en_to_fr_model, en_source_vocab, fr_target_vocab  = loadModel(en_to_fr=True, load_parameters=True);
+en_to_fr_model, en_source_vocab, fr_target_vocab  = loadModel(en_to_fr=True, load_parameters=True, load_on_cpu=True);
 en_to_fr_model.eval();
 
-fr_to_en_model, fr_source_vocab, en_target_vocab  = loadModel(en_to_fr=False, load_parameters=True);
+fr_to_en_model, fr_source_vocab, en_target_vocab  = loadModel(en_to_fr=False, load_parameters=True, load_on_cpu=True);
 fr_to_en_model.eval();
 
 
