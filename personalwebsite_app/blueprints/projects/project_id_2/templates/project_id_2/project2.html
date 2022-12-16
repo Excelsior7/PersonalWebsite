@@ -9,12 +9,14 @@ NLP
 {% endblock %}
 
 {% block project_title %}
-Machine Translation EN <-> FR
+<!-- Machine Translation EN <-> FR -->
+Machine Translation EN -> FR
 {% endblock %}
 
 {% block github_repo %}
 https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
 {% endblock %}
+
 
 {% block project_description %}
 <p>
@@ -31,36 +33,293 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
 </p>
 <p>
     Behind the results you will get below is an encoder-decoder 
-    Transformer-based architecture. The parameters were trained 
-    from scratch on the English-French dataset by <a href="http://www.manythings.org/anki/" target="_blank">manythings.org</a> 
-    using the Adam optimizer and the Cross Entropy loss function.
+    <a href="https://github.com/Excelsior7/NLPProjects/blob/main/MachineTranslation/Transformer/notebook/Transformer_implementation.ipynb" target="_blank">Transformer</a>-based architecture. 
+    The parameters were trained from scratch on the English-French dataset by <a href="http://www.manythings.org/anki/" target="_blank">manythings.org</a>.
 </p>
 <p>
-    I chose to only manage the translation between English and French, 
-    because my familiarity of these two languages allows me to easily reason 
-    about the structure of the language and the translation results obtained.
+    I chose to translate between English and French because my familiarity with both languages allows 
+    me to more easily reason about the structure of each language and the translation results obtained.
 </p>
 <p>
     Through each project, I try to show one or several skills that I consider 
     necessary in the toolbox of a machine learning engineer. In this case, 
     it is the implementation of a rather large architecture using a 
-    Deep Learning framework (as it may be necessary when a paper is released by the community 
-    presenting a new architecture), the training of the model from scratch, 
-    and the release of this model. 
+    Deep Learning framework on a non-trivial problem, the training of the model 
+    from scratch and all that surrounds a successful training, and the release of this model. 
 </p>
+
+<div class="accordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <strong>Training details</strong>
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <section>
+                <h5>Dataset and Batching</h5>
+                <p>
+                    As noted above, the model was trained from scratch on the English-French dataset from <a href="http://www.manythings.org/anki/" target="_blank">manythings.org</a>.
+                    The dataset initially contains 197463 translation examples (as of 2022). After data augmentation (see below), it contains 315680 examples, which is the number of examples used to train the model.
+                    The English language vocabulary has 21019 tokens and the French language vocabulary has 31544 tokens (in total, less than 100 tokens come from outside the dataset).
+                </p>
+                <p>
+                    A great practice inspired by the <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank">Attention Is All You Need</a> paper is Batching, 
+                    which consists of segmenting the dataset into subgroups so that each group contains roughly the same number of tokens.
+                    The practice helps avoiding that a short sequence is padded against the longest sequence in the dataset, 
+                    because this unnecessarily increases training resources and second, it hurts the signal-to-noise ratio.
+                    In order to make informed decisions about the boundaries of each group, I constructed the graphs below:
+                </p>
+                <div class="examples_length_plots_images mt-3, mb-3">
+                    <img src="{{url_for('project_id_2_bp.static', filename='english_examples_length.png')}}" alt="histogram" width="380" height="280">
+                    <img src="{{url_for('project_id_2_bp.static', filename='french_examples_length.png')}}" alt="histogram" width="380" height="280">
+                </div>
+
+                <p>
+                    From the information provided by these graphs, I segmented the dataset into 5 groups relatively to the source examples length
+                    (because a source example of length n is not necessarily associated with a target example of length n): (0,5], (5,10], (10,15], (15,20], (20,25]. 
+                    Then, each example in each group was padded relative to the longest example in its group (source examples groups and target examples groups independently). 
+                    The choice not to include examples with lengths greater than 25 is based on the amount 
+                    of examples in this category which in my current judgment is far too small for the algorithm 
+                    to learn the structure of this high dimensional space.
+                </p>
+            </section>
+            <section>
+                <h5>Hyperparameters and Loss function</h5>
+                <p>
+                    For the hyperparameters related to the choice of architecture of the Transformer I used the hyperparameters of the architecture named "base" in the 
+                    <a href="https://arxiv.org/pdf/1706.03762.pdf" target="_blank">Attention Is All You Need</a> paper.
+                    Given that the number of examples in their dataset is in the millions, this may seem like a poor choice. 
+                    However, in doing so, I used one of the practices recommended by the <a href="https://cs231n.github.io/neural-networks-1/" target="_blank">CS231n</a> course, I quote:
+                </p>
+                <p>
+                    <i>[...] Based on our discussion above, it seems that smaller neural networks can be preferred if the data is not complex enough to prevent overfitting. 
+                    However, this is incorrect - there are many other preferred ways to prevent overfitting in Neural Networks that we will discuss later 
+                    (such as L2 regularization, dropout, input noise). In practice, it is always better to use these methods to control overfitting instead of the number of neurons.
+                    The subtle reason behind this is that smaller networks are harder to train with local methods such as Gradient Descent: 
+                    It's clear that their loss functions have relatively few local minima, but it turns out that many of these minima are easier to converge to, 
+                    and that they are bad (i.e. with high loss). Conversely, bigger neural networks contain significantly more local minima, 
+                    but these minima turn out to be much better in terms of their actual loss. [...]</i> 
+                </p>
+                <p>
+                    For hyperparameters that are not directly related to the architecture, such as dropout, the learning rate and weight decay, I used hyperparameter optimization. 
+                </p>
+                <p>
+                    For the Loss function, I used the <a href="https://pytorch.org/docs/stable/generated/torch.nn.CrossEntropyLoss.html" target="_blank">CrossEntropyLoss</a>.
+                </p>
+            </section>
+            <section>
+                <h5>Hardware and Training time</h5>
+                <p>
+                    I trained the model on an A100-SXM4 GPU for 87 epochs, each epoch lasts approximately 450 seconds, which gives a training time of 11 hours.
+                </p>
+                <p>
+                    Here is a visual aid to help understand the evolution behind the number of epochs.
+                </p>
+                <img src="{{url_for('project_id_2_bp.static', filename='training_loss.png')}}" alt="plot" width="380" height="280">
+            </section>
+            <section>
+                <h5>Optimizer and Scheduler</h5>
+                <p>
+                    I used the <a href="https://pytorch.org/docs/stable/generated/torch.optim.Adam.html" target="_blank">Adam</a> 
+                    optimizer with weight decay of 10e-3 and a learning rate initialization of 10e-4.
+                    For the scheduler, I used <a href="https://pytorch.org/docs/stable/generated/torch.optim.lr_scheduler.ReduceLROnPlateau.html#torch.optim.lr_scheduler.ReduceLROnPlateau" target="_blank">ReduceLROnPlateau</a>
+                    proposed by PyTorch on the metric of the loss function with a factor of 0.5 and a patience of 20.
+                </p>
+            </section>
+            <section>
+                <h5>Regularization and Data augmentation</h5>
+                <p>
+                    Two forms of regularization were used:
+                </p>
+                <p>
+                    The first one is the use of <a href="https://pytorch.org/docs/stable/generated/torch.nn.Dropout.html?highlight=dropout#torch.nn.Dropout" target="_blank">Dropout</a>
+                    with a probability p=0.1. 
+                </p>
+                <p>
+                    The second one is via data augmentation. Here I will describe the role played by two functions named <strong>specialEntries</strong> and <strong>dataAugment</strong> 
+                    (they can be analyzed in detail in the <a href="https://github.com/Excelsior7/NLPProjects/blob/main/MachineTranslation/Transformer/notebook/Transformer_implementation.ipynb" target="_blank">notebook</a> section Data augmentation)
+                    in data augmentation and some assumptions on my part about what plays a role in regularization.
+                </p>
+                <p>
+                    The purpose of <strong>specialEntries</strong> and <strong>dataAugment</strong> is to increase the dataset in order to maximize the generalization capability.
+                    Chronologically, <strong>specialEntries</strong> did not exist and <strong>dataAugment</strong> was only intended to find examples such that the source and target examples 
+                    contain the same first name (e.g. "tom") and replace these first names with a name from the <a href="https://data.world/alexandra/baby-names" target="_blank">First Names</a> dataset.
+                    The addition of <strong>specialEntries</strong> does not change this, its role is simply to further increase the dataset and also (I suppose) to bring regularization at the same time
+                    in order to maximize the generalization capacity of the algorithm.
+                </p>
+                <p>
+                    To do this, the idea behind <strong>specialEntries</strong> is always to look for examples such that the source example and the target example contain the same word 
+                    (not necessarily a first name), and to replace this word by:
+
+                    <ul>
+                        <li>
+                            if the index i of the example is a multiple of <strong>ukn_period</strong>, we replace this word by the token: <<strong>ukn</strong>> .
+                        </li>
+                        <li>
+                            if the index i of the example is a multiple of <strong>token_noize_period</strong>, we replace this word with: 
+                            <br>
+                            "<<strong>special_begin</strong>>", "s1", "s2", ..., "sM", "<<strong>special_end</strong>>".
+                            (M is the length of the word, and sk is the replacement of the kth character of the word by a randomly selected symbol from a list of symbols)
+                        </li>
+                        <li>
+                            otherwise we replace this word with: 
+                            <br>
+                            "<<strong>special_begin</strong>>", "c1", "c2", ..., "cM", "<<strong>special_end</strong>>".
+                            (such that ck is the kth character of the word)
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    The token <<strong>ukn</strong>> has primarily a regularization purpose
+                    and "<<strong>special_begin</strong>>", ... , "<<strong>special_end</strong>>" (which replaces the three small dots depends on the index i) has the objective to make the algorithm able
+                    to process any type of input that may contain tokens not referenced by the vocabulary, I also suppose that the practice has a certain regularizing virtue. 
+                    Here is a practical case to illustrate:
+                    <ul>
+                        <li>
+                            If for example the input is "Starladata is a new planet.", my goal was to be able to give as output "Starladata est une nouvelle planète". 
+                            To do this my algorithm breaks the input in the following way: 
+                            <br>
+                            ["<<strong>special_begin</strong>>", "s", "t", "a", "r", "l", "a", "d", "a", "t", "a", "<<strong>special_end</strong>>", "<<strong>space</strong>>", "is", "<<strong>space</strong>>", "a", "<<strong>space</strong>>", "new", "<<strong>space</strong>>", "planet", "<<strong>eos</strong>>"].
+                        </li>
+                        <br>
+                        <li>
+                            The expected output is then as follows:
+                            <br>
+                            ["<<strong>bos</strong>>", "<<strong>special_begin</strong>>", "s", "t", "a", "r", "l", "a", "d", "a", "t", "a", "<<strong>special_end</strong>>", "<<strong>space</strong>>", "est", "<<strong>space</strong>>", "une", "<<strong>space</strong>>", "nouvelle", "<<strong>space</strong>>", "planète", "<<strong>eos</strong>>"].
+                        </li>                               
+                    </ul>
+                </p>
+                <p>
+                    For the data augmentation part, I also increased a little bit the dataset to be able to handle cardinal numbers, numbers written in natural language, ordinal numbers and hours.
+                    Thanks to the great python library <a href="https://github.com/savoirfairelinux/num2words" target="_blank">num2words</a>, it was very easy.
+                </p>
+            </section>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+            <strong>Model Limitations</strong> 
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <section>
+                <p>
+                    This is not a secret to the community, but training a deep learning architecture with 
+                    the faculty to represent a space as large as the natural language space is already not easy but also costly. 
+                </p>
+                <p>
+                    And the reason I chose to introduce the Model Limitations section by the cost is because we can tend to forget the importance 
+                    of human or technological capital when we see the breathtaking results from some of the technology behemoths. 
+                </p>
+                <p>
+                    I think being specific can help understand the context, which is central to this section about the Model's limitations.
+                </p>
+                <p>
+                    So in all transparency, I had set myself a 50 euro budget. The cost of using the A100-SXM4 GPU per hour 
+                    is approximately 1.50 euros which leaves me with approximately 33 hours of computation. 
+
+                    If we take into account the cost of hyperparameters optimization, 
+                    the cost of potential errors (yes I made some) and the cost of training, 
+                    we realize that it leaves us little degree of freedom.
+                </p>
+                <p>
+                    Taking these constraints into consideration, I had to make choices around the two central costly pillars of the architecture, 
+                    the model size and the dataset size. In our contemporary deep learning architectures, the size of the model is a reflection 
+                    of the size of the dataset, so let's talk about some voluntary choices I made on the dataset. 
+                    Since the size of the dataset could not be too large,
+                </p>
+                <ul>
+                    <li>
+                        I (obviously) limited the number of examples.
+                        <br>
+                        <i>Consequence: The knowledge space of the model is restricted.</i>
+
+                    </li>
+                    <br>
+                    <li>
+                        I favored learning on small sequences to avoid the curse of dimensionality.
+                        <br>
+                        <i>Consequence: As soon as the size of the sequence is too large, the model becomes unable to correctly process the request.</i>
+                        <br>
+                        <i>More details: To get a better idea of what to expect for an input with T tokens, one should look at the distribution of the length of 
+                            the source language sequences (for now only English as input is supported) in the Training details above, Dataset and Batching section. 
+                            However, this distribution represents the lengths after processing the string inputs (pre-padding) and therefore the length 
+                            takes into account some specific tokens that shouldn't be ignored to evaluate what to expect. 
+                            The operation is very simple, multiply the number of tokens T (roughly the number of words and punctuation marks) of your input by 2. 
+                            The quantity 2*T is then the one you have to compare to the distribution quoted above. </i>
+                    </li>
+                    <br>
+                    <li>
+                        I have limited the data augmentation:
+                        <ul>
+                            <li>
+                                On vocabulary words and their applications.
+                            </li>
+                            <li>
+                                On spelling mistakes.
+                            </li>
+                            <li>
+                                On punctuation.
+                            </li>
+                        </ul>
+                        <i>Consequence: The model is not (I consider) robust enough to input variations.</i> 
+                    </li>
+            </section>
+        </div>
+      </div>
+    </div>
+</div>
 {% endblock %}
 
 {% block project_content %}
 <div class="google_div border border-3 rounded-4">
-    I propose below a simple interface that can receive up to 300 characters 
-    maximum in input in order to have enough to investigate the capabilities and flaws 
-    of the model while avoiding unnecessary overload on the server.
+    <strong>Please read above about the limitations of the model to understand the following:</strong> 
+    <br>
+    If we count an average of 2.5 characters per token, and a maximum number of tokens of ceil(25/2) = 13, 
+    it gives us a number of characters of 2.5*13=32.5, add to that one space per token and we obtain 32.5+13=45.5.
+    And so, in order to avoid an unnecessary load on the server, I limit the number of characters to 50. 
 </div>
 
-<!-- ENGLISH TO FRENCH -->
+<!-- ENGLISH -> FRENCH -->
 
-<div id="en_to_fr" style="display:{{en_to_fr_display}}" class="machine_translation_section google_div border border-3 rounded-4 mt-3 mb-4">
-    <div class="input_output_toggler mb-4">
+<div id="en_to_fr" class="machine_translation_section google_div border border-3 rounded-4 mt-3 mb-4">
+
+    <p>
+        <strong>Note: The model loads on your first request, so it may take a few seconds for this one.</strong>
+    </p>
+
+    <div class="translation">
+        <div class="input">
+            <form action="{{ url_for('project_id_2_bp.translateEnglishToFrench') }}" method="post">
+                <div>
+                    <label for="input"><strong>INPUT:</strong></label>
+                    <label for="input"><strong>ENGLISH</strong></label>
+                </div>
+                <textarea id="input" name="input" rows="5" cols="35" maxlength="50" required>{{en_input}}</textarea>
+                <input class="btn blackbutton_form_submit_w100 mt-3" type="submit" value="Translate">
+            </form>
+        </div>
+        <div class="output">
+            <form>
+                <div>
+                    <label for="output"><strong>OUTPUT:</strong></label>
+                    <label for="output"><strong>FRENCH</strong></label>
+                </div>
+                <textarea id="output" name="output" rows="5" cols="35" disabled>{{en_to_fr_translation}}</textarea>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- ENGLISH <-> FRENCH -->
+
+{# <!-- <div id="en_to_fr" style="display:{{en_to_fr_display}}" class="machine_translation_section google_div border border-3 rounded-4 mt-3 mb-4">
+      <div class="input_output_toggler mb-4">
         <form>
             <legend>Select a translation direction:</legend>
             <div>
@@ -73,7 +332,7 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
               <label for="fr_en_1">FR -> EN</label>
             </div>
         </form>
-    </div>
+    </div> 
     <div class="translation">
         <div class="input">
             <form action="{{ url_for('project_id_2_bp.translateEnglishToFrench') }}" method="post">
@@ -96,8 +355,6 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
         </div>
     </div>
 </div>
-
-<!-- FRENCH TO ENGLISH -->
 
 <div id="fr_to_en" style="display:{{fr_to_en_display}}" class="machine_translation_section google_div border border-3 rounded-4 mt-3 mb-4">
     <div class="input_output_toggler mb-4">
@@ -136,7 +393,7 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
             </form>
         </div>
     </div>
-</div>
+</div>  --> #}
 
 
 {% endblock %}
@@ -161,3 +418,4 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
 }
 </script>
 {% endblock %}
+

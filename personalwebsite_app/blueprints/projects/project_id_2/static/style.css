@@ -22,6 +22,11 @@
     justify-content: space-between;
 }
 
+.examples_length_plots_images {
+    display: flex;
+    justify-content: space-around;
+}
+
 @media (max-width: 1000px) { 
     .machine_translation_section .translation{
         flex-direction: column;
@@ -29,5 +34,13 @@
 
     .machine_translation_section .translation .input{
         margin-bottom: 50px;
+    }
+}
+
+@media (max-width: 870px) { 
+    .examples_length_plots_images {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
     }
 }

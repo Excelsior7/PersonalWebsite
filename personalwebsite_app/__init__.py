@@ -1,5 +1,6 @@
 import os 
 from flask import Flask, url_for, redirect
+from .blueprints.projects.project_id_2.machine_translation.Transformer_implementation import Vocab
 
 
 def create_app(test_config=None):

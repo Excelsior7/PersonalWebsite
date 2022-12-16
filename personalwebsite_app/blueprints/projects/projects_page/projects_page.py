@@ -28,8 +28,8 @@ projects_objects = [
     Projects(
         2,
         PROJECT_TYPE.NLP,
-        "Machine Translation EN<->FR", 
-        "Simple Transformer-based architecture machine translation algorithm: English <-> French"),
+        "Machine Translation EN->FR", 
+        "Simple Transformer-based architecture machine translation algorithm trained from scratch: English -> French"),
     Projects(
         3,
         PROJECT_TYPE.NLP,
