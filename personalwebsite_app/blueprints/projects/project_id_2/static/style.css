@@ -27,6 +27,12 @@
     justify-content: space-around;
 }
 
+.encoder_decoder_schema {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 @media (max-width: 1000px) { 
     .machine_translation_section .translation{
         flex-direction: column;
