@@ -4,12 +4,11 @@ from torch import no_grad
 from functools import lru_cache
 
 ##
-# from .machine_translation.Transformer_implementation import createVocabs
+#from .machine_translation.Transformer_implementation import createVocabs
 ##
 
 from .machine_translation.Transformer_implementation import loadModel
 from .machine_translation.Transformer_implementation import translateUserInput
-from .machine_translation.Transformer_implementation import standardizeOutput
 
 project_id_2_bp = Blueprint(name='project_id_2_bp', 
                     import_name=__name__,
@@ -24,6 +23,7 @@ project_id_2_bp = Blueprint(name='project_id_2_bp',
 def modelInstantiation():
     en_to_fr_model, en_source_vocab, fr_target_vocab  = loadModel(load_parameters=True, load_on_cpu=True);
     en_to_fr_model.eval();
+
     return en_to_fr_model, en_source_vocab, fr_target_vocab;
 
 ## VIEWS ##
@@ -31,7 +31,7 @@ def modelInstantiation():
 def project2():
 
     ##
-    # createVocabs(True);
+    #createVocabs(True);
     ##
 
     project_base_html_loader = projects_base_structure_jinja2_env.get_template("projects_base_structure.html");

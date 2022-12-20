@@ -188,16 +188,16 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
                     Here is a practical case to illustrate:
                     <ul>
                         <li>
-                            If for example the input is "Starladata is a new planet.", my goal was to be able to give as output "Starladata est une nouvelle planète". 
+                            If for example the input is "adxty is a new book.", my goal was to be able to give as output "adxty est un nouveau livre". 
                             To do this my algorithm breaks the input in the following way: 
                             <br>
-                            ["<<strong>special_begin</strong>>", "s", "t", "a", "r", "l", "a", "d", "a", "t", "a", "<<strong>special_end</strong>>", "<<strong>space</strong>>", "is", "<<strong>space</strong>>", "a", "<<strong>space</strong>>", "new", "<<strong>space</strong>>", "planet", "<<strong>eos</strong>>"].
+                            ["<<strong>special_begin</strong>>", "a", "d", "x", "t", "y", "<<strong>special_end</strong>>", "<<strong>space</strong>>", "is", "<<strong>space</strong>>", "a", "<<strong>space</strong>>", "new", "<<strong>space</strong>>", "book", "<<strong>eos</strong>>"].
                         </li>
                         <br>
                         <li>
                             The expected output is then as follows:
                             <br>
-                            ["<<strong>bos</strong>>", "<<strong>special_begin</strong>>", "s", "t", "a", "r", "l", "a", "d", "a", "t", "a", "<<strong>special_end</strong>>", "<<strong>space</strong>>", "est", "<<strong>space</strong>>", "une", "<<strong>space</strong>>", "nouvelle", "<<strong>space</strong>>", "planète", "<<strong>eos</strong>>"].
+                            ["<<strong>bos</strong>>", "<<strong>special_begin</strong>>", "a", "d", "x", "t", "y", "<<strong>special_end</strong>>", "<<strong>space</strong>>", "est", "<<strong>space</strong>>", "un", "<<strong>space</strong>>", "nouveau", "<<strong>space</strong>>", "livre", "<<strong>eos</strong>>"].
                         </li>                               
                     </ul>
                 </p>
@@ -245,14 +245,14 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
                 </p>
                 <ul>
                     <li>
-                        I (obviously) limited the number of examples.
+                        <strong>I (obviously) limited the number of examples.</strong> 
                         <br>
                         <i>Consequence: The knowledge space of the model is restricted.</i>
 
                     </li>
                     <br>
                     <li>
-                        I favored learning on small sequences to avoid the curse of dimensionality.
+                        <strong>I favored learning on small sequences to avoid the curse of dimensionality.</strong>
                         <br>
                         <i>Consequence: As soon as the size of the sequence is too large, the model becomes unable to correctly process the request.</i>
                         <br>
@@ -265,19 +265,31 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
                     </li>
                     <br>
                     <li>
-                        I have limited the data augmentation:
+                        <strong>I have limited the data augmentation:</strong>
                         <ul>
                             <li>
-                                On vocabulary words and their applications.
+                                <strong> On vocabulary words and their applications.</strong>
+                                <br>
+                                Note: There are many words that are relatively infrequently used or used in very specific contexts that are not in the dataset.
+                                <br>
+                                (e.g.) Words like syllogism, eukaryote, isomorphism, etc... are not included.
                             </li>
                             <li>
-                                On spelling mistakes.
+                                <strong> On punctuation.</strong>
+                                <br>
+                                Note: All examples contain punctuation and therefore the model has learned to work with it.
+                                <br>
+                                (e.g.) <i>hello.</i> as input is good ; <i>hello</i> (note the lack of a period) as input does not give a correct output.
                             </li>
                             <li>
-                                On punctuation.
+                                <strong> On spelling mistakes.</strong>
+                                <br>
+                                Note: Indeed, the dataset does not contain any errors and if it does it is (surely) an error of innatention of its author.
+                                <br>
+                                (e.g.) <i>hello.</i> as input is good ; <i>helo.</i> as input does not give a meaningful output.
                             </li>
                         </ul>
-                        <i>Consequence: The model is not (I consider) robust enough to input variations.</i> 
+                        <i>Consequence: The model is not robust enough to input variations.</i> 
                     </li>
             </section>
         </div>
@@ -288,7 +300,8 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
 
 {% block project_content %}
 <div class="google_div border border-3 rounded-4">
-    <strong>Please read above about the limitations of the model to understand the following:</strong> 
+    <strong style="color: red;">PLEASE READ ABOVE ABOUT THE LIMITATIONS OF THE MODEL TO UNDERSTAND THE FOLLOWING AND TO HAVE A SOUND JUDGMENT ON THE RESULTS YOU WILL GET:</strong> 
+    <br>
     <br>
     If we count an average of 2.5 characters per token, and a maximum number of tokens of ceil(25/2) = 13, 
     it gives us a number of characters of 2.5*13=32.5, add to that one space per token and we obtain 32.5+13=45.5.
@@ -299,7 +312,7 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
 
 <div id="en_to_fr" class="machine_translation_section google_div border border-3 rounded-4 mt-3 mb-4">
 
-    <p>
+    <p class="mb-4">
         <strong>Note: The model loads on your first request, so it may take a few seconds for this one.</strong>
     </p>
 
@@ -409,7 +422,7 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
 {% endblock %}
 
 {% block js_script %}
-<script>
+<!-- <script>
     function toggleTranslationLanguage() {
         en_to_fr_div_display = document.getElementById("en_to_fr").style.display;
 
@@ -426,6 +439,6 @@ https://github.com/Excelsior7/NLPProjects/tree/main/MachineTranslation
         document.getElementById("en_fr_2").checked = false;
 
 }
-</script>
+</script> -->
 {% endblock %}
 

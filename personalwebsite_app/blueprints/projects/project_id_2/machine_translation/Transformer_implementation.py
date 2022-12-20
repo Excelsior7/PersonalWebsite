@@ -366,7 +366,7 @@ def loadVocab():
 
     return en_source_vocab, fr_target_vocab;
 
-def loadModel(load_parameters=False, load_on_cpu=True):
+def loadModel(load_parameters=True, load_on_cpu=True):
 
     source_vocab, target_vocab = loadVocab();
 
@@ -489,7 +489,7 @@ def prediction(model,datasets,source_vocab,target_vocab):
         bos_X = bos_X[~preds_is_eos];
         source_seq_len_test = source_seq_len_test[~preds_is_eos];
 
-        if (time.time() - start) > 30:
+        if (time.time() - start) > 60:
             preds_outputs_y = None;
             break; 
          
