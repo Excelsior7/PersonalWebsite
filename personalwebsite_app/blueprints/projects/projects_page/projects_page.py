@@ -1,6 +1,5 @@
 from enum import Enum
-from flask import Blueprint, render_template, redirect, url_for, abort
-from jinja2 import TemplateNotFound
+from flask import Blueprint, render_template, redirect, url_for
 from personalwebsite_app.jinja2_env import base_structure_jinja2_env
 
 class PROJECT_TYPE(Enum): 
@@ -30,16 +29,16 @@ projects_objects = [
         PROJECT_TYPE.NLP,
         "Machine Translation EN->FR", 
         "Simple Transformer-based architecture machine translation algorithm trained from scratch: English -> French"),
-    Projects(
-        3,
-        PROJECT_TYPE.NLP,
-        "Named-Entity Recognition", 
-        "Extract from the text given as input some named entities present in it. A named entity is a group of words and/or symbols with a specific meaning."),
-    Projects(
-        4,
-        PROJECT_TYPE.IR,
-        "Information Retrieval", 
-        "Propose a list of movies ordered by relevance according to the user's query."),
+    # Projects(
+    #     3,
+    #     PROJECT_TYPE.NLP,
+    #     "Named-Entity Recognition", 
+    #     "Extract from the text given as input some named entities present in it. A named entity is a group of words and/or symbols with a specific meaning."),
+    # Projects(
+    #     4,
+    #     PROJECT_TYPE.IR,
+    #     "Information Retrieval", 
+    #     "Propose a list of movies ordered by relevance according to the user's query."),
     ]
 
 

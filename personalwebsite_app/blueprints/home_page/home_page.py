@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, abort
-from jinja2 import TemplateNotFound
+from flask import Blueprint, render_template
 from personalwebsite_app.jinja2_env import base_structure_jinja2_env
 
 home_bp = Blueprint(name='home_page_bp', 

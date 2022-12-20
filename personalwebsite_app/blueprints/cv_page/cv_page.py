@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, redirect, url_for, abort
-from jinja2 import TemplateNotFound
+from flask import Blueprint, render_template, redirect, url_for
 from personalwebsite_app.jinja2_env import base_structure_jinja2_env
 
 cv_bp = Blueprint(name='cv_page_bp', 

@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, abort
-from jinja2 import TemplateNotFound
+from flask import Blueprint, render_template
 
 
 project_id_3_bp = Blueprint(name='project_id_3_bp', 

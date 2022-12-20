@@ -1,5 +1,4 @@
-from flask import Blueprint, render_template, abort
-from jinja2 import TemplateNotFound
+from flask import Blueprint
 
 base_bp = Blueprint(name='base_structure_bp', 
                     import_name=__name__,

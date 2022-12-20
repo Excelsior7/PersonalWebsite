@@ -1,0 +1,23 @@
+{% extends base_html_loader %}
+
+{% block css_style %}
+<link rel="stylesheet" href="{{ url_for('exceptions_page_bp.static', filename='style.css') }}">
+{% endblock %}
+
+{% block tab_title %}
+ERROR
+{% endblock %}
+
+{% block section_name %}
+ERROR
+{% endblock %}
+
+{% block header %}
+<header style="background-image: url({{url_for('exceptions_page_bp.static', filename='background_image_exceptions.png')}}); background-repeat:no-repeat; background-position-x:center;">
+</header>
+{% endblock %}
+
+{% block content %}
+<h1>Internal Server Error</h1>
+<p>There seems to be a problem, please try again later. If the problem persists, do not hesitate to contact me.</p>
+{% endblock %}

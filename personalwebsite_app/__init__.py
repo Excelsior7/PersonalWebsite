@@ -1,6 +1,6 @@
-import os 
+import os
 from flask import Flask, url_for, redirect
-from .blueprints.projects.project_id_2.machine_translation.Transformer_implementation import Vocab
+from werkzeug.exceptions import InternalServerError
 
 
 def create_app(test_config=None):
@@ -27,8 +27,11 @@ def create_app(test_config=None):
     def root():
         return redirect(url_for('home_page_bp.home'));
 
+    #------------BLUEPRINTS------------#
     from personalwebsite_app.blueprints.base_structure.base_structure import base_bp
     app.register_blueprint(base_bp);
+    from personalwebsite_app.blueprints.exceptions.exceptions import exceptions_bp
+    app.register_blueprint(exceptions_bp);
     from personalwebsite_app.blueprints.cv_page.cv_page import cv_bp
     app.register_blueprint(cv_bp);
     from personalwebsite_app.blueprints.home_page.home_page import home_bp
@@ -44,6 +47,12 @@ def create_app(test_config=None):
     app.register_blueprint(project_id_3_bp);
     from personalwebsite_app.blueprints.projects.project_id_4.project_id_4 import project_id_4_bp
     app.register_blueprint(project_id_4_bp);
+
+
+    #------------EXCEPTIONS------------#
+    import personalwebsite_app.blueprints.exceptions.exceptions as exceptions
+    app.register_error_handler(InternalServerError, exceptions.internalServerError);
+    app.register_error_handler(404, exceptions.pageNotFound404);
 
     return app;
 

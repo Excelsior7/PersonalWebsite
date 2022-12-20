@@ -1,11 +1,10 @@
-from flask import Blueprint, render_template, request, abort
-from jinja2 import TemplateNotFound
+from flask import Blueprint, render_template, request
 from personalwebsite_app.jinja2_env import projects_base_structure_jinja2_env
 from torch import no_grad
 from functools import lru_cache
 
 ##
-from .machine_translation.Transformer_implementation import createVocabs
+# from .machine_translation.Transformer_implementation import createVocabs
 ##
 
 from .machine_translation.Transformer_implementation import loadModel
