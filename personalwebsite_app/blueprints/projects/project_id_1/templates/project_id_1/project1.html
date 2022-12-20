@@ -27,23 +27,195 @@ https://github.com/Excelsior7/CVProjects/tree/main/ObjectDetection
 </p>
 
 <p>
-    More specifically, how to use the code in order to have the expected results as described above:
+    More specifically, how to use the 
+    <a href="https://github.com/Excelsior7/CVProjects/blob/main/ObjectDetection/notebook/object_detector_in_video.ipynb" target="_blank">code</a>
+     in order to have the expected results as described above:
 
     <ol>
-        <li>- You instantiate one object <strong>objectDetectorInVideo</strong>.</li>
-        <li>- From your instance you call the function <strong>def objectDetectionInVideo</strong> with the following parameters:
-        <ol>
-            <li>- The path of the input video. (e.g. “./path/to/input/video/input.mp4”)</li>
-            <li>- The path of the output video. (e.g. “./path/to/output/video/output.mp4”)</li>
-            <li>- A threshold T, such that T is a real number between 0 and 1. (e.g. 0.9)</li>
-            <li>- The objects of interest as a list of strings. (e.g. [“person”, “umbrella”]) 
-                To see all the objects manipulated by the code and the correct way to write them for input, 
-                please refer to <a href="https://cocodataset.org/#explore" target="_blank">COCO Explorer</a>.</li>
-        </ol>
+        <li>
+            You instantiate one object <strong>objectDetectorInVideo</strong>.
         </li>
-        <li>- Done.</li>
+        <li>
+            From your instance you call the function <strong>def objectDetectionInVideo</strong> with the following parameters:
+            <ol>
+                <li>
+                    The path of the input video. (e.g. “./path/to/input/video/input.mp4”)
+                </li>
+                <li>
+                    The path of the output video. (e.g. “./path/to/output/video/output.mp4”)
+                </li>
+                <li>
+                    A threshold T, such that T is a real number between 0 and 1. (e.g. 0.9)
+                </li>
+                <li>
+                    The objects of interest as a list of strings. (e.g. [“person”, “umbrella”]) 
+                    To see all the objects manipulated by the code and the correct way to write them for input, 
+                    please refer to <a href="https://cocodataset.org/#explore" target="_blank">COCO Explorer</a>.
+                </li>
+            </ol>
+        </li>
+        <li>
+            Done.
+        </li>
     </ol>
 </p>
+
+<div class="accordion mt-3 mb-3">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+            <strong>More details</strong>
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+        <div class="accordion-body">
+            <section>
+                <h5>Object detection in video algorithm</h5>
+                <p>
+                    The purpose of this section is to give an overview of my approach to the problem of object detection in videos.
+                </p>
+                <p>
+                    Like a lot of problems in computer science and engineering in general, the key is to divide the big problem into subproblems 
+                    whose solutions exist or can be found more easily and be combined to form the solution of the big problem.
+                </p>
+                <p>
+                    But sometimes, the task of subdividing a problem into subproblems is the most difficult task because it requires you 
+                    to have a good understanding of the structure of the problem.
+                </p>
+                <p>
+                    Here for the object detection in video algorithm, the essential fact is that a video consists of a sequence of frames that is 
+                    nothing more (if the video is not encoded using an interframe video compression algorithm) than a sequence of individual images. 
+                    (See <a href="https://blog.chiariglione.org/what-is-the-difference-between-an-image-and-a-video-frame/#:~:text=The%20question%20looks%20innocent%20enough,i.e.%20an%20image%2C%20is%20obtained." target="_blank">What is the difference between an image and a video frame ?</a>)
+                </p>
+                <p>
+                    From this point of having an understanding of the structure of a video, and armed with the fact that there are algorithms 
+                    for the detection of objects in images, here is the structure of my subproblems presented in the form of questions:
+                </p>
+                <p>
+                    <ol>
+                        <li>
+                            How to iterate over the frames (images) of a video ?
+                        </li>
+                        <li>
+                            In the set of algorithms for object detection in image, which one has the following four qualities:
+                            <ol>
+                                <li>
+                                    Not too difficult to set up (time constraint: 3 days).
+                                </li>
+                                <li>
+                                    Requires an amount of resources (memory, execution time) that fits in my constraints.
+                                </li>
+                                <li>
+                                    Good performance.
+                                </li>
+                                <li>
+                                    Able to identify objects of interest to me.
+                                </li>
+                            </ol>
+                        </li>
+                        <li>
+                            How to draw the boxes around each predicted object in an image ?
+                        </li>
+                        <li>
+                            How to assemble the different processed images into a new video ?
+                        </li>
+                        <li>
+                            How to extract the audio from the initial video and set it to the final assembled processed video ? (Obviously, the last question arises if the audio is important to the project)
+                        </li>
+                    </ol>
+                </p>
+                <p>
+                    So now that these questions had been asked, if I could answer each of them by finding the right tool or by developing a homemade tool, 
+                    the problem was solved, the last and simplest step was to simply put the pieces together. So after the questions, here are the answers associated to each of them:
+                </p>
+                <p>
+                    <ol>
+                        <li>
+                            Using the read() method of openCV VideoCapture object.
+                        </li>
+                        <li>
+                            Using the DETR model (End-to-End Object Detection) from facebook.
+                        </li>
+                        <li>
+                            Using the rectangle() function of openCV.
+                        </li>
+                        <li>
+                            Using the write() method of openCV VideoWriter object.
+                        </li>
+                        <li>
+                            Using the methods and properties of Moviepy VideoFileClip object.
+                        </li>
+                    </ol>
+                </p>
+            </section>
+            <section>
+                <h5>Various links that have been relevant or interesting to the project</h5>
+                <ul>
+                    <li>
+                        <a href="https://huggingface.co/docs/transformers/v4.24.0/en/model_doc/detr#transformers.DetrFeatureExtractor" target="_blank">DETR</a>
+                    </li>
+                    <li>
+                        <a href="https://huggingface.co/facebook/detr-resnet-50" target="_blank">facebook/detr-resnet-50</a>
+                    </li>
+                    <li>
+                        <a href="https://towardsdatascience.com/face-detection-with-haar-cascade-727f68dafd08" target="_blank">Haar Cascasde Classifier</a>
+                    </li>
+                    <li>
+                        <a href="https://docs.opencv.org/3.4/db/d28/tutorial_cascade_classifier.html" target="_blank">Haar Cascasde Classifier with openCV</a>
+                    </li>
+                    <li>
+                        <a href="https://zulko.github.io/moviepy/getting_started/audioclips.html" target="_blank">Audio in MoviePy</a>
+                    </li>
+                </ul>
+            </section>
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+        <h2 class="accordion-header" id="headingTwo">
+          <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+              <strong>Model Limitations</strong>
+          </button>
+        </h2>
+        <div id="collapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-bs-parent="#accordionExample">
+          <div class="accordion-body">
+            <section>
+
+                <p>
+                    The goal of this section is to present the various limitations of the algorithm.
+                </p>
+                <p>
+                    These limitations are due to the time constraint of the project and were not necessary (at least personally judged as such) for its accomplishment.
+                </p>
+                <p>
+                    These limitations can be more or less easily resolved.
+                </p>
+        
+                <ul>
+                    <li>
+                        Display the model's confidence in its predictions.
+                    </li>
+                    <li>
+                        Be able to modify certain hyperparameters of the model (e.g. the number of object queries).
+                    </li>
+                    <li>
+                        Be able to specify a time interval in the video that will be the only one processed by the algorithm.
+                    </li>
+                    <li>
+                        The set of objects that a model can identify is limited by its training dataset, and the training dataset of the * model used (DETR) is COCO of 2017.
+                    </li>
+                    <li>
+                        The number of different colors to identify the objects is limited to 7.
+                    </li>
+                    <li>
+                        Offers only the format mp4 as output.
+                    </li>
+                </ul>
+            </section>
+          </div>
+        </div>
+    </div>
+</div>
 
 <p>
     <em>Note: For this project, I chose not to provide a simple interface to upload -> process -> output 
@@ -59,11 +231,11 @@ https://github.com/Excelsior7/CVProjects/tree/main/ObjectDetection
         <br>
         This small project was proposed to me during an interview 
         by a company for which I had applied as an intern. 
-        It was my first concrete project in the world of computer vision. 
+        It was my first concrete (small) project in the world of computer vision. 
         You can see the description of the interview in the screenshot below 
         (I have blurred out some confidential information). 
         The time constraint was 72 hours. 
-        The code on github and the result below were my results after these 72 hours.
+        The code on github and the result below were my results at the end of these 72 hours.
     </p>
 </div>
 
