@@ -2,11 +2,6 @@ from flask import Blueprint, render_template, request
 from personalwebsite_app.jinja2_env import projects_base_structure_jinja2_env
 from torch import no_grad
 from functools import lru_cache
-
-##
-#from .machine_translation.Transformer_implementation import createVocabs
-##
-
 from .machine_translation.Transformer_implementation import loadModel
 from .machine_translation.Transformer_implementation import translateUserInput
 
@@ -29,11 +24,6 @@ def modelInstantiation():
 ## VIEWS ##
 @project_id_2_bp.route('/')
 def project2():
-
-    ##
-    #createVocabs(True);
-    ##
-
     project_base_html_loader = projects_base_structure_jinja2_env.get_template("projects_base_structure.html");
     return render_template('project2.html', 
                             project_base_html_loader=project_base_html_loader);
