@@ -33,6 +33,12 @@
     align-items: center;
 }
 
+.encoder_decoder_schema img {
+    width: 100%;
+    height: auto;
+    max-width: 450px;
+}
+
 @media (max-width: 1000px) { 
     .machine_translation_section .translation{
         flex-direction: column;
