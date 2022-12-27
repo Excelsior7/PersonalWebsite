@@ -15,4 +15,4 @@ def cv():
 
 @cv_bp.route('/pdf')
 def cvRouting():
-    return redirect(url_for('cv_page_bp.static', filename='pdf_test.pdf'));
+    return redirect(url_for('cv_page_bp.static', filename='resume.pdf'));
