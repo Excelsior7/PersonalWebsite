@@ -13,20 +13,21 @@ import matplotlib.pyplot as plt
 
 
 ## HDF5 INITIALIZATION ##
-LAST_SEASON = LS = 2023;
-FIRST_SEASON = FS = 2010;
+date_now = datetime.datetime.now();
+LAST_SEASON = date_now.year+1 if date_now.month >= 11 else date_now.year;
+FIRST_SEASON = 2010;
 NUMBER_OF_SEASON = LAST_SEASON-FIRST_SEASON;
-RANGE = range(FS,LS+1);
+RANGE = range(FIRST_SEASON,LAST_SEASON+1);
 
 nba_hdf5_file = os.path.dirname(__file__)+"/static/nba_teams_file.hdf5";
 
 NBA_TEAMS = {
     "ATL": (RANGE, None, "Atlanta Hawks"),
     "BOS": (RANGE, None, "Boston Celtics"),
-    "BRK": (range(2013,LS+1), None, "Brooklyn Nets"),
-    "NJN": (range(FS,2012+1), "BRK"),
-    "CHO": (range(2015,LS+1), None, "Charlotte Hornets"),
-    "CHA": (range(FS, 2014+1), "CHO"),
+    "BRK": (range(2013,LAST_SEASON+1), None, "Brooklyn Nets"),
+    "NJN": (range(FIRST_SEASON,2012+1), "BRK"),
+    "CHO": (range(2015,LAST_SEASON+1), None, "Charlotte Hornets"),
+    "CHA": (range(FIRST_SEASON, 2014+1), "CHO"),
     "CHI": (RANGE, None, "Chicago Bulls"),
     "CLE": (RANGE, None, "Cleveland Cavaliers"),
     "DAL": (RANGE, None, "Dallas Mavericks"),
@@ -41,8 +42,8 @@ NBA_TEAMS = {
     "MIA": (RANGE, None, "Miami Heat"),
     "MIL": (RANGE, None, "Milwaukee Bucks"),
     "MIN": (RANGE, None, "Minnesota Timberwolves"),
-    "NOP": (range(2014,LS+1), None, "New Orleans Pelicans"),
-    "NOH": (range(FS,2013+1), "NOP"),
+    "NOP": (range(2014,LAST_SEASON+1), None, "New Orleans Pelicans"),
+    "NOH": (range(FIRST_SEASON,2013+1), "NOP"),
     "NYK": (RANGE, None, "New York Knicks"),
     "OKC": (RANGE, None, "Oklahoma City Thunder"),  
     "ORL": (RANGE, None, "Orlando Magic"),
@@ -85,7 +86,7 @@ def pullAllDataFromBR():
         for season in season_range:
             url = f"https://www.basketball-reference.com/teams/{team}/{str(season)}/gamelog";
             r = requests.get(url);
-            soup_obj = bs4.BeautifulSoup(r.text);
+            soup_obj = bs4.BeautifulSoup(r.text, features="html.parser");
 
             for match_id in range(1,83):
                 row = soup_obj.find(id="div_tgl_basic").tbody.find(id=f"tgl_basic.{str(match_id)}");
@@ -111,6 +112,7 @@ def pullAllDataFromBR():
 
     nba_teams_file.close();
 
+
 ## PULL AND FILTER DATA ##
 
 # Pull new data (from LAST_SEASON) from BasketBall-Reference's site.
@@ -121,9 +123,12 @@ def pullDataFromBRUpdate():
         new_acronym = NBA_TEAMS[team][1];
         season = LAST_SEASON;
 
+        if new_acronym is not None:
+            continue;
+
         url = f"https://www.basketball-reference.com/teams/{team}/{str(season)}/gamelog";
         r = requests.get(url);
-        soup_obj = bs4.BeautifulSoup(r.text);
+        soup_obj = bs4.BeautifulSoup(r.text, features="html.parser");
 
         for match_id in range(1,83):
             row = soup_obj.find(id="div_tgl_basic").tbody.find(id=f"tgl_basic.{str(match_id)}");
@@ -137,17 +142,20 @@ def pullDataFromBRUpdate():
             if row[3] != '@':
                 row.insert(3, ' ');
 
-            if new_acronym is None and match_id == 1:
+            if match_id == 1:
                 nba_teams_file[str(season)][team][0] = COLUMNS;
-            elif new_acronym is not None and match_id == 1:
-                nba_teams_file[str(season)][new_acronym][0] = COLUMNS;
 
-            if new_acronym is None:
-                nba_teams_file[str(season)][team][match_id] = row;
-            else:
-                nba_teams_file[str(season)][new_acronym][match_id] = row;
+            nba_teams_file[str(season)][team][match_id] = row;
 
     nba_teams_file.close();
+
+# Prevents the <pullDataFromBRUpdate> function from pulling data on the BasketBall-Reference's site unnecessarily 
+# when the NBA season is paused. End: first of May, Start: first of November.
+def inhibitorPullDataFromBRUpdate(update_nba_data_job):
+    if 5 <= datetime.datetime.now().month <= 10:
+        update_nba_data_job.pause();
+    else:
+        update_nba_data_job.resume();
 
 # pull pandas DataFrame containing informations about the <team> on the specified <season>
 def pullDF(season, team):

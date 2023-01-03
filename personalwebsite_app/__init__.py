@@ -1,13 +1,15 @@
 import os
 from flask import Flask, url_for, redirect
 from werkzeug.exceptions import InternalServerError
-
+from apscheduler.schedulers.background import BackgroundScheduler
+from apscheduler.triggers.cron import CronTrigger
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask("personalwebsite_app", instance_relative_config=True);
     app.config.from_mapping(
-        SECRET_KEY='dev'
+        SECRET_KEY='dev',
+        SCHEDULER_API_ENABLED = True
     );
 
     if test_config is None:
@@ -53,6 +55,15 @@ def create_app(test_config=None):
     import personalwebsite_app.blueprints.exceptions.exceptions as exceptions
     app.register_error_handler(InternalServerError, exceptions.internalServerError);
     app.register_error_handler(404, exceptions.pageNotFound404);
+
+    #------------SCHEDULER------------#
+    import personalwebsite_app.blueprints.projects.project_id_3.nba_teams as nba_teams
+    scheduler = BackgroundScheduler();
+    update_nba_data_trigger = CronTrigger(hour=5);
+    inhibitor_update_nba_data_trigger = CronTrigger(hour=4);
+    update_nba_data_job = scheduler.add_job(func=nba_teams.pullDataFromBRUpdate, trigger=update_nba_data_trigger);
+    scheduler.add_job(func=nba_teams.inhibitorPullDataFromBRUpdate, trigger=inhibitor_update_nba_data_trigger, args=(update_nba_data_job,));
+    scheduler.start();
 
     return app;
 
