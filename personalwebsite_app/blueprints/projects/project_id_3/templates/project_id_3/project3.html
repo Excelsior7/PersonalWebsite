@@ -1,1 +1,142 @@
-<h1>PROJECT3</h1>
+{% extends project_base_html_loader %}
+{% block css_style %}
+<link rel="stylesheet" href="{{ url_for('project_id_3_bp.static', filename='style.css') }}">
+{% endblock %}
+
+{% block tab_title %}
+DS
+{% endblock %}
+
+{% block project_title %}
+NBA Dashboard       
+{% endblock %}
+
+{% block github_repo %}
+{% endblock %}
+
+{% block project_description %}
+<p>
+    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam earum delectus quam, tempora aliquid harum sapiente? Repellendus quod exercitationem quasi eum aut. Repellendus sit inventore vitae labore laboriosam earum nam?
+    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est numquam ex, aspernatur officia hic velit, sunt commodi inventore, fugiat neque id nam cupiditate? Maiores minus, ab aspernatur repellendus repellat nulla.
+    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae beatae sit commodi possimus, minima omnis libero at nulla facilis ad quis? Fugit, fuga alias voluptas doloribus id dolorem maiores fugiat.
+
+</p>
+{% endblock %}
+
+{% block project_content %}
+<div class="grid_dashboard_container google_div border border-3 rounded-4">
+    <div class="choose_team"> 
+        <div class="dropdown">
+            <a class="btn btn-secondary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Choose NBA Teams
+            </a>
+        
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='ATL') }}">Atlanta Hawk</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='BOS') }}">Boston Celtic</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='BRK') }}">Brooklyn Nets</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='CHO') }}">Charlotte Hornets</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='CHI') }}">Chicago Bulls</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='CLE') }}">Cleveland Cavaliers</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='DAL') }}">Dallas Mavericks</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='DEN') }}">Denver Nuggets</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='DET') }}">Detroit Pistons</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='GSW') }}">Golden State Warriors</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='HOU') }}">Houston Rockets</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='IND') }}">Indiana Pacers</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='LAC') }}">Los Angeles Clippers</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='LAL') }}">Los Angeles Lakers</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='MEM') }}">Memphis Grizzlies</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='MIA') }}">Miami Heat</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='MIL') }}">Milwaukee Bucks</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='MIN') }}">Minnesota Timberwolves</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='NOP') }}">New Orleans Pelicans</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='NYK') }}">New York Knicks</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='OKC') }}">Oklahoma City Thunder</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='ORL') }}">Orlando Magic</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='PHI') }}">Philadelphia 76ers</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='PHO') }}">Phoenix Suns</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='POR') }}">Portland Trail Blazers</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='SAC') }}">Sacramento Kings</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='SAP') }}">San Antonio Spurs</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='TOR') }}">Toronto Raptors</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='UTA') }}">Utah Jazz</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('project_id_3_bp.loadFigures', team='WAS') }}">Washington Wizards</a></li>
+            </ul>
+        </div>
+    </div>
+    <div class="team_logo">
+        <img src="{{url_for('project_id_3_bp.static', filename=team_acronym+'.png')}}" alt="plot", width="250", height="auto">
+    </div>
+    <div class="team_current_season">
+        <div class="last_game">
+            <p>
+                <strong>Last Game - {{last_game_date}}</strong>
+            </p>
+            <div class="last_game_scores">
+                <div class="last_game_score_vignette">
+                    <img class="mr-2" src="{{url_for('project_id_3_bp.static', filename=team_acronym+'.png')}}" alt="plot", width="50", height="auto">
+                    <strong>{{last_game_team_name}}</strong>
+                </div>
+                <div class="last_game_score">
+                    <div class="team">
+                        <strong>{{last_game_team_points}}</strong>
+                    </div>
+                    :
+                    <div class="opp">
+                        <strong>{{last_game_opp_points}}</strong>
+                    </div>
+                </div>   
+                <div class="last_game_score_vignette">
+                    <img class="ml-2" src="{{url_for('project_id_3_bp.static', filename=opp_acronym+'.png')}}" alt="plot", width="50", height="auto">
+                    <strong>{{last_game_opponent_name}}</strong>
+                </div>
+            </div>
+        </div>
+        <img src="data:image/png;base64,{{fig_barplot_encoded}}" alt="plot" width="450", height="auto">
+    </div>
+    <div class="choose_season">
+
+        <form action="{{ url_for('project_id_3_bp.loadFigures', team=request.path.split('/')[2])}}" method="post">
+            <div class="range_start range">
+                <label for="rangestart">Season range start:</label>
+                <input id="rangestart" name="rangestart" type="range" value="{{SEASON_RANGE_START}}" min="{{FIRST_SEASON}}" max="{{LAST_SEASON}}" oninput="this.nextElementSibling.value = this.value">
+                <output>{{SEASON_RANGE_START}}</output>
+            </div>
+            <div class="range_end range">
+                <label for="rangeend">Season range end:</label>
+                <input id="rangeend" name="rangeend" type="range" value="{{SEASON_RANGE_END}}" min="{{FIRST_SEASON}}" max="{{LAST_SEASON}}" oninput="this.nextElementSibling.value = this.value">
+                <output>{{SEASON_RANGE_END}}</output>
+            </div>
+            <input class="btn blackbutton_form_submit_w100 mt-3" type="submit" value="Apply">
+        </form>
+        <p class="choose_season_error_message">
+            {{choose_season_error_message}}
+        </p>
+    </div>  
+    <div class="rows">
+        <div class="row_1">
+            <div class="number_of_games">
+                <h3>
+                    NUMBER OF GAMES
+                </h3>
+                <h2>
+                    {{number_of_games}}
+                </h2>
+            </div>
+            <img src="data:image/png;base64,{{fig_wl_encoded}}" alt="plot" width="350", height="auto">
+        </div>
+        <div class="row_2">
+            <img src="data:image/png;base64,{{fig_points_encoded}}" alt="plot" width="350", height="auto">
+            <img src="data:image/png;base64,{{fig_opp_points_encoded}}" alt="plot" width="350", height="auto">
+        </div>
+        <div class="row_3">
+            <img src="data:image/png;base64,{{fig_points_boxplot_encoded}}" alt="plot" width="350", height="auto">
+        </div>
+    </div>
+  </div>
+{% endblock %}
+
+
+{% block js_script %}
+{% endblock %}

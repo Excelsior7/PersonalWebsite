@@ -2,11 +2,10 @@
 .vscode/
 
 *.pyc
-__pycache__/
-*/__pycache__/
+__pycache__
 
 instance/
 
-*/parameters_Transformer_en_to_fr.tar
+parameters_Transformer_en_to_fr.tar
 
-personalwebsite_app/blueprints/projects/project_id_2/machine_translation/saved_objects/parameters_Transformer_en_to_fr.tar
+nba_teams_file.hdf5

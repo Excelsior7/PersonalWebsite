@@ -1,0 +1,123 @@
+.grid_dashboard_container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.team_logo {
+    margin-top: 15px;
+    margin-bottom: 45px;
+}
+
+.team_current_season {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.last_game {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 35px;
+}
+
+.last_game_scores {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.last_game_score {
+    display: flex;
+    justify-content: center;
+    margin-left: 30px;
+    margin-right: 30px;
+}
+
+.last_game_score .team {
+    margin-right: 5px;
+}
+
+.last_game_score .opp {
+    margin-left: 5px;
+}
+
+.last_game_score_vignette {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80px;
+    width: 200px;
+}
+
+.choose_season {
+    width: 350px;
+}
+
+.choose_season .range {
+    display: flex;
+    flex-direction: column;
+    width: 350px;
+}
+
+.range_start {
+    margin-bottom: 10px;
+}
+
+.choose_season_error_message {
+    margin-top: 5px;
+    color: red;
+    font-weight: bold;
+    text-align: center;
+}
+
+.rows {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.row_1 {
+    margin-top: 50px;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.number_of_games {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid black;
+    padding: 50px;
+}
+
+.row_2 {
+    margin-top: 10px;
+    display: flex;
+    width: 100%;
+}
+
+.row_3 {
+    margin-top: 10px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+@media (max-width: 725px) { 
+    .row_1 {
+        flex-direction: column;
+    }
+
+    .row_2 {
+        flex-direction: column;
+    }
+    
+    .row_3 {
+        flex-direction: column;
+    }
+}

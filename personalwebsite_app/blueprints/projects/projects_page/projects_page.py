@@ -10,6 +10,8 @@ class PROJECT_TYPE(Enum):
     ML = "ML";
     NLP = "NLP";
     RS = "RS";
+    DS = "DS";
+    SWE = "SWE";
 
 class Projects():
     def __init__(self, id: int, project_type: PROJECT_TYPE, project_title: str, project_description: str):
@@ -20,20 +22,20 @@ class Projects():
 
 projects_objects = [
     Projects(
-        1,
-        PROJECT_TYPE.CV,
-        "Object Detection in Video", 
-        "Given an input video, produce the same video with bounding boxes around the object of interest to the user."),
+        3,
+        PROJECT_TYPE.DS,
+        "NBA Dashboard", 
+        "Some key statistics up to date on the NBA teams presented in the form of a dashboard."),
     Projects(
         2,
         PROJECT_TYPE.NLP,
         "Machine Translation EN->FR", 
         "Simple Transformer-based architecture machine translation algorithm trained from scratch: English -> French"),
-    # Projects(
-    #     3,
-    #     PROJECT_TYPE.NLP,
-    #     "Named-Entity Recognition", 
-    #     "Extract from the text given as input some named entities present in it. A named entity is a group of words and/or symbols with a specific meaning."),
+    Projects(
+        1,
+        PROJECT_TYPE.CV,
+        "Object Detection in Video", 
+        "Given an input video, produce the same video with bounding boxes around the object of interest to the user."),
     # Projects(
     #     4,
     #     PROJECT_TYPE.IR,
