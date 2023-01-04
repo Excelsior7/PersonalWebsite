@@ -367,7 +367,7 @@ def pointsScoreBoxPlots(DF_PULL_SEASON_RANGE, TEAM):
         notch=True, sym=".", 
         patch_artist=True, 
         boxprops=dict(facecolor="#030f20"),
-        medianprops=dict(color="#ff8800"),
+        medianprops=dict(color="white"),
         whiskerprops=dict(color="#030f20"),
         capprops=dict(color="#030f20"));
     plt.title("POINTS SCORED PER GAME");

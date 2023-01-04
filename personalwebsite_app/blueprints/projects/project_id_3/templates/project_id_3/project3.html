@@ -12,15 +12,73 @@ NBA Dashboard
 {% endblock %}
 
 {% block github_repo %}
+https://github.com/Excelsior7/DSProjects/blob/main/NBA/notebook/scraping.ipynb
 {% endblock %}
 
 {% block project_description %}
 <p>
-    Lorem, ipsum dolor sit amet consectetur adipisicing elit. Veniam earum delectus quam, tempora aliquid harum sapiente? Repellendus quod exercitationem quasi eum aut. Repellendus sit inventore vitae labore laboriosam earum nam?
-    Lorem ipsum, dolor sit amet consectetur adipisicing elit. Est numquam ex, aspernatur officia hic velit, sunt commodi inventore, fugiat neque id nam cupiditate? Maiores minus, ab aspernatur repellendus repellat nulla.
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae beatae sit commodi possimus, minima omnis libero at nulla facilis ad quis? Fugit, fuga alias voluptas doloribus id dolorem maiores fugiat.
+    Data science is an integral part of many (if not all) scientists in the digital age.
+</p>
+<p>
+    The objective here was to put into practice in the form of a project, different components of the data science discipline. 
+    The NBA was simply a fertile application domain that interested me.
+</p>
+<p>
+    <strong>The different components present in this project are:</strong>
+    <ul>
+        <li>
+            <strong>Data scraping</strong>: The data I used for this project comes from the site <a href="https://www.basketball-reference.com" target="_blank">Basketball Reference</a>. 
+            And to extract the data I used <a href="https://beautiful-soup-4.readthedocs.io/" target="_blank">Beautiful Soup</a>.  
+        </li>
+        <li>
+            <strong>Data cleaning</strong>: Once extracted, the data must be cleaned. For this project, the cleaning has been done upstream by the people who build the data I extracted above. 
+            I simply reworked the format of some columns to work more simply with the data.
+        </li>
+        <li>
+            <strong>Data storage</strong>: For the data storage, I used the python interface <a href="https://www.h5py.org/" target="_blank">h5py</a> 
+            of the flexible big data tool <a href="https://hdfgroup.org/" target="_blank">HDF5</a> whose structure and ease of use suited my needs.
+        </li>
+        <li>
+            <strong>Data analysis</strong>: My limited experience in the world of data analysis suggests that its two main goals are inspiration (e.g. exploring new hypotheses) or clarification (e.g. refuting a certain hypothesis). 
+            For this project, I am more into the inspiration part, which in a more technical way is called descriptive analysis. 
+            To help me work with the data, I used the famous <a href="https://pandas.pydata.org/" target="_blank">Pandas</a> tool.
+        </li>
+        <li>
+            <strong>Data visualization</strong>: I'm not inventing anything, the visual format is often the most adapted to humans to transform raw textual data into understanding. 
+            So I think the next logical question is this: How to best present the data so that the message it conveys to us is as clear as possible?
+            To help me answer this question, I used the recognized <a href="https://matplotlib.org/stable/index.html" target="_blank">Matplotlib</a> tool.
+        </li>
+    </ul>
+</p>
+<br>
+<p>
+    <strong>Some additional information on the dashboard:</strong>
+    <ul>
+        <li>
+            The data is from regular seasons only. (does not include playoffs)
+        </li>
+        <li>
+            The code updates the information automatically by making a daily request (except when the season is over) on the <a href="https://www.basketball-reference.com" target="_blank">Basketball Reference</a> site. 
+            The <a href="https://apscheduler.readthedocs.io/en/3.x/index.html" target="_blank">APScheduler</a> tool helps me to do this automation.
+        </li>
+        <li>
+            The dashboard can be broken down into two parts and the statistics in both parts are centered around the chosen team. 
+            The top part is only interested in the current season and the bottom part is interested in several statistics 
+            calculated from the interval of seasons that can be modified by the user. 
+            The dividing line between the top and the bottom is the definition of this interval.
+        </li>
+        <li>
+            Season range start must be less than or equal to Season range end.
+        </li>
+        <li>
+            Since a season is usually defined with two consecutive years and not just one year, 
+            to avoid any ambiguity I would like to specify that if you choose season S, 
+            it points to the (S-1)/S season.
+        </li>
+    </ul>
 
 </p>
+
 {% endblock %}
 
 {% block project_content %}
