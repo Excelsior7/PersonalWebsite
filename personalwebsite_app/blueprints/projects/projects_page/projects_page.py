@@ -41,7 +41,7 @@ projects_objects = [
     #     PROJECT_TYPE.IR,
     #     "Information Retrieval", 
     #     "Propose a list of movies ordered by relevance according to the user's query."),
-    ]
+];
 
 
 projects_page_bp = Blueprint(name='projects_page_bp', 

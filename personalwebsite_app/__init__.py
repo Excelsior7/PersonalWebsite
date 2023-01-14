@@ -8,8 +8,7 @@ def create_app(test_config=None):
     # create and configure the app
     app = Flask("personalwebsite_app", instance_relative_config=True);
     app.config.from_mapping(
-        SECRET_KEY='dev',
-        SCHEDULER_API_ENABLED = True
+        SECRET_KEY='dev'
     );
 
     if test_config is None:
