@@ -9,4 +9,4 @@ project_id_4_bp = Blueprint(name='project_id_4_bp',
 
 @project_id_4_bp.route('/')
 def project4():
-    return render_template('project4.html');
+    return render_template('playground_series_season_3_ep_5.html');

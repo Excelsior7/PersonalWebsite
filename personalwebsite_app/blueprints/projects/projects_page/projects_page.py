@@ -22,6 +22,11 @@ class Projects():
 
 projects_objects = [
     Projects(
+        4,
+        PROJECT_TYPE.DS,
+        "Kaggle Wine Competition", 
+        "Playground Series - Season 3, Episode 5 : Tabular Ordinal Regression with a Wine Quality Dataset. Ranking: 9/901"),
+    Projects(
         3,
         PROJECT_TYPE.DS,
         "NBA Dashboard", 
@@ -36,11 +41,6 @@ projects_objects = [
         PROJECT_TYPE.CV,
         "Object Detection in Video", 
         "Given an input video, produce the same video with bounding boxes around the object of interest to the user."),
-    # Projects(
-    #     4,
-    #     PROJECT_TYPE.IR,
-    #     "Information Retrieval", 
-    #     "Propose a list of movies ordered by relevance according to the user's query."),
 ];
 
 
